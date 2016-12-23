@@ -1,6 +1,6 @@
 {
   "name": "intersector",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Superfast intersection supporting primitives and objects.",
   "main": "index.js",
   "client": "./browser/intersector.js",

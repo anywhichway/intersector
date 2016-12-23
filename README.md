@@ -4,11 +4,14 @@ Superfast intersection supporting primitives and objects. In the age of big data
 Below are node.js benchmarks in a 4 core i7 2.86gz Windows 10 64bit environment:
 
 ```
-intersectorPrimitive x 145 ops/sec ±3.38% (72 runs sampled)
-benviePrimitive x 13.54 ops/sec ±2.29% (37 runs sampled)
-lovasoaPrimitive x 91.70 ops/sec ±2.70% (66 runs sampled)
-intersectorObject x 27.69 ops/sec ±2.88% (49 runs sampled)
-benvieObject x 11.18 ops/sec ±9.41% (33 runs sampled)
+intersectorPrimitive x 145 ops/sec ±3.69% (72 runs sampled)
+lodashPrimitive x 47.06 ops/sec ±3.99% (62 runs sampled)
+benviePrimitive x 13.49 ops/sec ±2.45% (37 runs sampled)
+lovasoaPrimitive x 91.53 ops/sec ±4.89% (66 runs sampled)
+intersectorObject x 29.28 ops/sec ±3.71% (52 runs sampled)
+lodashObject x 15.72 ops/sec ±4.80% (44 runs sampled)
+benvieObject x 15.39 ops/sec ±6.09% (40 runs sampled)
+lovasoaObject NOT SUPPORTED
 Fastest is intersectorPrimitive
 ```
 
@@ -57,6 +60,8 @@ In browser:
 ```
 
 # Updates (reverse chronological order)
+
+2016-12-23 v1.0.1 - Added lodash intersection to benchmark.
 
 2016-12-21 v1.0.0 - Initial public release.
 
