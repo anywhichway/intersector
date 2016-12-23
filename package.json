@@ -1,0 +1,39 @@
+{
+  "name": "intersector",
+  "version": "1.0.0",
+  "description": "Superfast intersection supporting primitives and objects.",
+  "main": "index.js",
+  "client": "./browser/intersector.js",
+  "reveal": true,
+  "isomorphic": true,
+  "scripts": {
+    "test": "istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec",
+    "minify": "minify browser/intersector.js > browser/intersector.min.js",
+    "prepublish": "cp index.js browser/intersector.js && npm run minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anywhichway/reasondb.git"
+  },
+  "keywords": [
+    "intersection"
+  ],
+  "author": "Simon Y. Blackwell <syblackwell@anywhichway.com> (http://www.github.com/anywhichway)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anywhichway/intersector/issues"
+  },
+  "homepage": "https://github.com/anywhichway/intersector#readme",
+  "devDependencies": {
+    "blanket": "^1.2.3",
+    "chai": "^3.4.1",
+    "istanbul": "^0.4.2",
+    "codeclimate-test-reporter": "^0.2.0",
+    "mocha": "^2.3.4",
+     "minify": "^2.0.8",
+     "benchmark": "^2.2.2"
+  },
+  "dependencies": {
+    
+  }
+}
