@@ -1,5 +1,5 @@
 # intersector
-Superfast intersection supporting primitives and objects.
+Superfast intersection supporting primitives and objects. In the age of big data, you need it.
 
 Below are node.js benchmarks in a 4 core i7 2.86gz Windows 10 64bit environment:
 

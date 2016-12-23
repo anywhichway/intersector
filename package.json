@@ -16,7 +16,9 @@
     "url": "git+https://github.com/anywhichway/reasondb.git"
   },
   "keywords": [
-    "intersection"
+    "intersection",
+    "benvie",
+    "lovasoa"
   ],
   "author": "Simon Y. Blackwell <syblackwell@anywhichway.com> (http://www.github.com/anywhichway)",
   "license": "MIT",
