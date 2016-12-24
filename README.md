@@ -61,6 +61,8 @@ In browser:
 
 # Updates (reverse chronological order)
 
+2016-12-24 v1.0.2 - Corrected git repository reference in package.json.
+
 2016-12-23 v1.0.1 - Added lodash intersection to benchmark.
 
 2016-12-21 v1.0.0 - Initial public release.

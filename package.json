@@ -1,6 +1,6 @@
 {
   "name": "intersector",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Superfast intersection supporting primitives and objects.",
   "main": "index.js",
   "client": "./browser/intersector.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anywhichway/reasondb.git"
+    "url": "git+https://github.com/anywhichway/intersector.git"
   },
   "keywords": [
     "intersection",
