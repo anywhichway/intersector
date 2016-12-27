@@ -29,13 +29,14 @@ Download and use the browser files from the browser directory.
 
 # Using
 
+`intersector(supportObjects=true)` is a function that returns another function configured to do array intersections. It takes one optional argument `supportObjects` that defaults to `false`. If `supportObjects` is false, the intersection is optimized for primitive data types and will run much faster.
+
 In NodeJS:
 
 ```
 var intersector = require("intersector"),
 	primitiveIntersect = intersector(),
 	objectIntersect = intersector(true);
-	
 	primitiveIntersect([1,2,3],[3,2]); // will return [3,2]
 	var o1 = {o:1},
 		o2 = {o:2},
@@ -50,7 +51,6 @@ In browser:
 <script>
 	var primitiveIntersect = intersector(),
 		objectIntersect = intersector(true);
-	
 	primitiveIntersect([1,2,3],[3,2]); // will return [2,3]
 	var o1 = {o:1},
 		o2 = {o:2},
@@ -60,6 +60,8 @@ In browser:
 ```
 
 # Updates (reverse chronological order)
+
+2016-12-24 v1.0.3 - Exposed a jsbenchmarks.com benchmark specification. Updated documentation.
 
 2016-12-24 v1.0.2 - Corrected git repository reference in package.json.
 

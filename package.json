@@ -1,7 +1,7 @@
 {
   "name": "intersector",
-  "version": "1.0.2",
-  "description": "Superfast intersection supporting primitives and objects.",
+  "version": "1.0.3",
+  "description": "Superfast intersection supporting primitives and objects. In the age of big data, you need it.",
   "main": "index.js",
   "client": "./browser/intersector.js",
   "reveal": true,
