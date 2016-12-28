@@ -9,7 +9,7 @@
   "scripts": {
     "test": "istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec",
     "minify": "minify browser/intersector.js > browser/intersector.min.js",
-    "prepublish": "cp index.js browser/intersector.js && npm run minify"
+    "prepublish": "cp index.js browser/intersector.js && cp index.js jsbenchmarks/intersector.js && npm run minify"
   },
   "repository": {
     "type": "git",
