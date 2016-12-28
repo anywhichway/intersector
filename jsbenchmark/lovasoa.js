@@ -1,5 +1,5 @@
 //https://gist.github.com/lovasoa/3361645
-(function() {
+(function() { 
 	function lovasoa() {
 		  var i, all, shortest, nShortest, n, len, ret = [], obj={}, nOthers;
 		  nOthers = arguments.length-1;
