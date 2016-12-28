@@ -61,6 +61,8 @@ In browser:
 
 # Updates (reverse chronological order)
 
+2016-12-27 v1.0.5 - Updated benchmark.
+
 2016-12-27 v1.0.4 - Corrected dev package dependencies. Modified code to use .hasOwnProperty.
 
 2016-12-24 v1.0.3 - Exposed a jsbenchmarks.com benchmark specification. Updated documentation.
