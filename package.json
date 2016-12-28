@@ -1,6 +1,6 @@
 {
   "name": "intersector",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Superfast intersection supporting primitives and objects. In the age of big data, you need it.",
   "main": "index.js",
   "client": "./browser/intersector.js",
@@ -33,7 +33,8 @@
     "codeclimate-test-reporter": "^0.2.0",
     "mocha": "^2.3.4",
      "minify": "^2.0.8",
-     "benchmark": "^2.2.2"
+     "benchmark": "^2.1.3",
+     "lodash": "^4.17.3"
   },
   "dependencies": {
     
