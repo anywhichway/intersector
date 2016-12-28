@@ -44,7 +44,7 @@ SOFTWARE.
 					mxk = array.length;
 				for(var k=0;k<mxk;k++) { // loop through all values
 					var item = array[k];
-					if((objects && set.has(item)) || (!objects && set.hasOwnProperty(item))) { // if value is possible
+					if((objects && set.has(item)) || (!objects && set[item])) { // if value is possible
 						if(j===mxj) { // and all arrays have it (or we would not be at this point)
 							rslt.push(item); // add to results
 						}
