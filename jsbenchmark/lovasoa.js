@@ -1,4 +1,5 @@
 //https://gist.github.com/lovasoa/3361645
+(function() {
 	function lovasoa() {
 		  var i, all, shortest, nShortest, n, len, ret = [], obj={}, nOthers;
 		  nOthers = arguments.length-1;
@@ -31,3 +32,10 @@
 		  }
 		  return ret;
 		}
+	if(typeof(module)!=="undefined") {
+		module.exports = lovasoa;
+	} else {
+		this.lovasoa = lovasoa;
+	}
+}).call(this);
+	
