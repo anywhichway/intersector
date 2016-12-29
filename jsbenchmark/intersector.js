@@ -20,11 +20,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 (function() {
-	function intersector(objects) {
+	function intersector(booleanOrUniqueKeyProperty) {
+		var key;
+		if(typeof(booleanOrUniqueKeyProperty)==="string") {
+			key = booleanOrUniqueKeyProperty;
+		}
 		return function() {
 			var min = Infinity, // length of shortest array argument
 				shrtst = 0, // index of shortest array argument
-				set = (objects ? new Set() : {});
+				set = (!key && booleanOrUniqueKeyProperty ? new Set() : {});
 				rslt = [], // result
 				mxj = arguments.length-1;
 			for(var j=0;j<=mxj;j++) { // find index of shortest array argument
@@ -37,14 +41,20 @@ SOFTWARE.
 			var shrt = arguments[shrtst],
 				mxi = shrt.length;
 			for(var i=0;i<mxi;i++) { // initialize set of possible values from shortest array
-				if(objects) { set.add(shrt[i]) } else { set[shrt[i]]=1 };
+				if(key) {
+					set[shrt[i][key]] = 1;
+				} else if(booleanOrUniqueKeyProperty) { 
+					set.add(shrt[i]) 
+				} else { 
+					set[shrt[i]]=1 
+				}
 			}
 			for(var j=0;j<=mxj;j++) { // loop through all array arguments
 				var	array = arguments[j],
 					mxk = array.length;
 				for(var k=0;k<mxk;k++) { // loop through all values
 					var item = array[k];
-					if((objects && set.has(item)) || (!objects && set[item])) { // if value is possible
+					if((key && set[item[key]]) || (!key && booleanOrUniqueKeyProperty && set.has(item)) || (!booleanOrUniqueKeyProperty && set[item])) { // if value is possible
 						if(j===mxj) { // and all arrays have it (or we would not be at this point)
 							rslt.push(item); // add to results
 						}

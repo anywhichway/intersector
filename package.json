@@ -1,6 +1,6 @@
 {
   "name": "intersector",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Superfast intersection supporting primitives and objects. In the age of big data, you need it.",
   "main": "index.js",
   "client": "./browser/intersector.js",
@@ -16,9 +16,11 @@
     "url": "git+https://github.com/anywhichway/intersector.git"
   },
   "keywords": [
+  	"intersect",
     "intersection",
     "benvie",
-    "lovasoa"
+    "lovasoa",
+    "lodash"
   ],
   "author": "Simon Y. Blackwell <syblackwell@anywhichway.com> (http://www.github.com/anywhichway)",
   "license": "MIT",

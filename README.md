@@ -29,7 +29,9 @@ Download and use the browser files from the browser directory.
 
 # Using
 
-`intersector(supportObjects=true)` is a function that returns another function configured to do array intersections. It takes one optional argument `supportObjects` that defaults to `false`. If `supportObjects` is false, the intersection is optimized for primitive data types and will run much faster.
+`intersector(booleanOrUniqueKeyProperty=0)` is a function that returns another function configured to do array intersections. It takes one optional argument `booleanOrUniqueKeyProperty` that defaults to `0` (which is faster than checking for `false` or `undefined`. If `booleanOrUniqueKeyProperty=0`  the intersection is optimized for primitive data types and will run much faster. If `typeof(booleanOrUniqueKeyProperty)==="string"` it is assumed to be a unique
+key on all objects in the arrays. This will run the second fastest. If `booleanOrUniqueKeyProperty` is otherwise not
+equal to zero, then a Set will be used internally and the algorithm will be slower, although still faster than many others.
 
 In NodeJS:
 
@@ -60,6 +62,8 @@ In browser:
 ```
 
 # Updates (reverse chronological order)
+
+2016-12-29 v1.0.7 - Added option to use unique key which makes object performance better.
 
 2016-12-27 v1.0.6 - Reverted .hasOwnProperty which slowed things down.
 
