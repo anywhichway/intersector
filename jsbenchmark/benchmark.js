@@ -27,7 +27,7 @@
 				primitives: {
 					arguments: [args1,args2],
 					expected: expected,
-					pretest: true,
+					pretest: false,
 					showArguments: false,
 					tests: {
 						lodash: (a1,a2) => { return _.intersection(a1,a2).length; },
@@ -41,7 +41,7 @@
 				keyedObjects: {
 					arguments: [oargs1,oargs2],
 					expected: expected,
-					pretest: true,
+					pretest: false,
 					showArguments: false,
 					tests: {
 						lodash: (a1,a2) => { return _.intersection(a1,a2).length; },
@@ -53,7 +53,7 @@
 				objects: {
 					arguments: [oargs1,oargs2],
 					expected: expected,
-					pretest: true,
+					pretest: false,
 					showArguments: false,
 					tests: {
 						lodash: (a1,a2) => { return _.intersection(a1,a2).length; },
