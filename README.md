@@ -17,7 +17,7 @@ Fastest is intersectorPrimitive
 
 Note: benvie is substantially faster in a Firefox browser.
 
-See benchmarks at [JSBenchmarks](http://www.jsbenchmarks.com/index.html?anywhichway/intersector/master/jsbenchmark/benchmark.js).
+See benchmarks at [JSBenchmarks](http://www.jsbenchmarks.com/index.html?anywhichway/intersection/master/benchmark.js).
 
 # Installing
 
