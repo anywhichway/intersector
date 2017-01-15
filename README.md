@@ -1,6 +1,10 @@
 # intersector
 Superfast intersection supporting primitives and objects. In the age of big data, you need it.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=anywhichway/intersector&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&utm_medium=referral&utm_content=anywhichway/intersector&utm_campaign=Badge_Coverage)
+
+
 Below are node.js benchmarks in a 4 core i7 2.86gz Windows 10 64bit environment:
 
 ```
@@ -62,6 +66,8 @@ In browser:
 ```
 
 # Updates (reverse chronological order)
+
+2017-01-15 v1.0.8 - Replaced `var` with `let`. Added Codacy quality assessment.
 
 2016-12-29 v1.0.7 - Added option to use unique key which makes object performance better.
 
