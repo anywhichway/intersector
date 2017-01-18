@@ -1,4 +1,7 @@
 # intersector
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&utm_medium=referral&utm_content=anywhichway/intersector&utm_campaign=badger)
+
 Superfast intersection supporting primitives and objects. In the age of big data, you need it.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=anywhichway/intersector&amp;utm_campaign=Badge_Grade)
@@ -8,13 +11,13 @@ Superfast intersection supporting primitives and objects. In the age of big data
 Below are node.js benchmarks in a 4 core i7 2.86gz Windows 10 64bit environment:
 
 ```
-intersectorPrimitive x 145 ops/sec ±3.69% (72 runs sampled)
-lodashPrimitive x 47.06 ops/sec ±3.99% (62 runs sampled)
-benviePrimitive x 13.49 ops/sec ±2.45% (37 runs sampled)
-lovasoaPrimitive x 91.53 ops/sec ±4.89% (66 runs sampled)
-intersectorObject x 29.28 ops/sec ±3.71% (52 runs sampled)
-lodashObject x 15.72 ops/sec ±4.80% (44 runs sampled)
-benvieObject x 15.39 ops/sec ±6.09% (40 runs sampled)
+intersectorPrimitive x 145 ops/sec Â±3.69% (72 runs sampled)
+lodashPrimitive x 47.06 ops/sec Â±3.99% (62 runs sampled)
+benviePrimitive x 13.49 ops/sec Â±2.45% (37 runs sampled)
+lovasoaPrimitive x 91.53 ops/sec Â±4.89% (66 runs sampled)
+intersectorObject x 29.28 ops/sec Â±3.71% (52 runs sampled)
+lodashObject x 15.72 ops/sec Â±4.80% (44 runs sampled)
+benvieObject x 15.39 ops/sec Â±6.09% (40 runs sampled)
 lovasoaObject NOT SUPPORTED
 Fastest is intersectorPrimitive
 ```
