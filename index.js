@@ -22,13 +22,14 @@ SOFTWARE.
 (function() {
 	"use strict"
 	function intersector(objects) {
+		function sorter(a,b) { return a.length - b.length }
 		var key = (typeof(objects)==="string" ? objects : false);
 		return function intersection() {
 			var args = [].slice.call(arguments),
 				rslt = [],
 				mxi = arguments.length-1,
 				set;
-			args.sort(function(a,b) { return a.length - b.length });
+			args.sort(sorter);
 			set = (objects && !key ? set = new Set(args[0]) : {});
 			// loop through all array arguments
 			for(var i=0;i<=mxi;i++) { 

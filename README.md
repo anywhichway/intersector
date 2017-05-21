@@ -14,13 +14,13 @@ Twice as fast that the next fastest module (lodash) for objects.
 Below are node.js benchmarks in a 4 core i7 2.86gz Windows 10 64bit environment:
 
 ```
-intersectorPrimitive x 142 ops/sec ±2.26% (78 runs sampled)
-lovasoaPrimitive x 88.89 ops/sec ±2.54% (73 runs sampled)
-lodashPrimitive x 46.32 ops/sec ±3.62% (60 runs sampled)
-benviePrimitive x 12.72 ops/sec ±2.56% (36 runs sampled)
-intersectorObject x 32.65 ops/sec ±2.32% (56 runs sampled)
-lodashObject x 14.10 ops/sec ±10.34% (41 runs sampled)
-benvieObject x 14.67 ops/sec ±6.42% (41 runs sampled)
+intersectorPrimitive x 146 ops/sec ±1.81% (79 runs sampled)
+lovasoaPrimitive x 86.73 ops/sec ±2.93% (73 runs sampled)
+lodashPrimitive x 46.62 ops/sec ±3.29% (60 runs sampled)
+benviePrimitive x 11.90 ops/sec ±5.29% (34 runs sampled)
+intersectorObject x 31.08 ops/sec ±2.78% (54 runs sampled)
+lodashObject x 14.15 ops/sec ±5.90% (40 runs sampled)
+benvieObject x 14.43 ops/sec ±5.22% (40 runs sampled)
 lovasoaObject NOT SUPPORTED
 Fastest is intersectorPrimitive
 ```
@@ -72,6 +72,8 @@ In browser:
 ```
 
 # Updates (reverse chronological order)
+
+2017-05-21 v1.0.10 - Minor optimization, moved sort function to be predifined instead of within lexical scope of sort call.
 
 2017-05-21 v1.0.9 - Reverted to `var`, it is slightly faster. Reduced code size by 50%. Improved performance for objects.
 

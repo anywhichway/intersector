@@ -21,22 +21,31 @@ SOFTWARE.
  */
 (function() {
 	"use strict"
-	const intersector = objects => {
-		const key = (typeof(objects)==="string" ? objects : false);
+	function intersector(objects) {
+		function sorter(a,b) { return a.length - b.length }
+		var key = (typeof(objects)==="string" ? objects : false);
 		return function intersection() {
-			const args = [].slice.call(arguments),
-				rslt = [];
-			args.sort((a, b) => a.length - b.length);
-			// create a set or key map for core comparison
-			const set = (objects===true ? new Set(args[0]) : args[0].reduce((accu,curr) => { if(key) { accu[curr[key]]=1 } else { accu[curr]=1 } return accu; },{})), 
-				mxi = args.length-1;
+			var args = [].slice.call(arguments),
+				rslt = [],
+				mxi = arguments.length-1,
+				set;
+			args.sort(sorter);
+			set = (objects && !key ? set = new Set(args[0]) : {});
 			// loop through all array arguments
-			for(let i=0;i<=mxi;i++) { 
-				const array = args[i];
+			for(var i=0;i<=mxi;i++) { 
+				var array = arguments[i],
+					mxj = array.length;
 				// loop through all values
-				for(let item of array) {
+				for(var j=0;j<mxj;j++) {
+					var item = array[j];
+					// initialize the possible values
+					if(i===0) {
+						if(!objects) set[item] = 1;
+						else if(key) set[item[key]] = 1;
+						// if using Set, already initialized
+					}
 					// save if value is possible and and all arrays have it
-					if((objects ? (key ? set[item[key]] :  set.has(item)) : set[item]) && i===mxi) rslt.push(item);
+					if((!objects ? set[item] : (key ? set[item[key]] :  set.has(item))) && i===mxi) rslt.push(item);
 				}
 			}
 			return rslt;
