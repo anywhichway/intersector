@@ -1,6 +1,6 @@
 {
   "name": "intersector",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "Superfast intersection supporting primitives and objects. In the age of big data, you need it.",
   "main": "index.js",
   "client": "./browser/intersector.js",
@@ -8,8 +8,7 @@
   "isomorphic": true,
   "scripts": {
     "test": "keys.bat && istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec && cat coverage/lcov.info | node_modules\\.bin\\codacy-coverage",
-    "minify": "minify browser/intersector.js > browser/intersector.min.js",
-    "prepublish": "cp index.js browser/intersector.js && cp index.js jsbenchmark/intersector.js && npm run minify"
+    "prepublish": "cp index.js browser/intersector.js"
   },
   "repository": {
     "type": "git",
@@ -35,9 +34,10 @@
     "codacy-coverage": "^2.0.0",
     "codeclimate-test-reporter": "^0.2.0",
     "istanbul": "^0.4.2",
-    "lodash": "^4.17.3",
-    "minify": "^2.0.8",
+    "lodash": "^4.17.4",
     "mocha": "^2.3.4"
   },
-  "dependencies": {}
+  "dependencies": {
+   
+  }
 }

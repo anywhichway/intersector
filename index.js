@@ -20,49 +20,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 (function() {
-	function intersector(booleanOrUniqueKeyProperty) {
-		let key;
-		if(typeof(booleanOrUniqueKeyProperty)==="string") {
-			key = booleanOrUniqueKeyProperty;
-		}
-		return function() {
-			let min = Infinity, // length of shortest array argument
-				shrtst = 0, // index of shortest array argument
-				set = (!key && booleanOrUniqueKeyProperty ? new Set() : {}),
-				rslt = [], // result
-				mxj = arguments.length-1;
-			for(let j=0;j<=mxj;j++) { // find index of shortest array argument
-				let l = arguments[j].length;
-				if(l<min) {
-					shrtst = j;
-					min = l;
-				}
-			}
-			let shrt = arguments[shrtst],
-				mxi = shrt.length;
-			for(let i=0;i<mxi;i++) { // initialize set of possible values from shortest array
-				if(key) {
-					set[shrt[i][key]] = 1;
-				} else if(booleanOrUniqueKeyProperty) { 
-					set.add(shrt[i]);
-				} else { 
-					set[shrt[i]]=1;
-				}
-			}
-			for(let j=0;j<=mxj;j++) { // loop through all array arguments
-				var	array = arguments[j],
-					mxk = array.length;
-				for(let k=0;k<mxk;k++) { // loop through all values
-					let item = array[k];
-					if((key && set[item[key]]) || (!key && booleanOrUniqueKeyProperty && set.has(item)) || (!booleanOrUniqueKeyProperty && set[item])) { // if value is possible
-						if(j===mxj) { // and all arrays have it (or we would not be at this point)
-							rslt.push(item); // add to results
-						}
+	"use strict"
+	function intersector(objects) {
+		var key = (typeof(objects)==="string" ? objects : false);
+		return function intersection() {
+			var args = [].slice.call(arguments),
+				rslt = [],
+				mxi = arguments.length-1,
+				set;
+			args.sort(function(a,b) { return a.length - b.length });
+			set = (objects && !key ? set = new Set(args[0]) : {});
+			// loop through all array arguments
+			for(var i=0;i<=mxi;i++) { 
+				var array = arguments[i],
+					mxj = array.length;
+				// loop through all values
+				for(var j=0;j<mxj;j++) {
+					var item = array[j];
+					// initialize the possible values
+					if(i===0) {
+						if(!objects) set[item] = 1;
+						else if(key) set[item[key]] = 1;
+						// if using Set, already initialized
 					}
+					// save if value is possible and and all arrays have it
+					if((!objects ? set[item] : (key ? set[item[key]] :  set.has(item))) && i===mxi) rslt.push(item);
 				}
 			}
 			return rslt;
-		};
+		}
 	}
 	if(typeof(module)!=="undefined") {
 		module.exports = intersector;

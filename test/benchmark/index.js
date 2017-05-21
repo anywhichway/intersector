@@ -1,5 +1,5 @@
 var Benchmark = require("benchmark"),
-intersector = require("../index.js"),
+intersector = require("../../index.js"),
 _ = require("lodash");
 
 var suite = new Benchmark.Suite,
@@ -60,24 +60,23 @@ for(var i=0;i<100000;i++) {
 }
 var oargs2 = oargs1.slice(50000);
 
-
 //add tests
-suite.add('intersectorPrimitive', function() {
-	primitiveIntersect(args1,args2);
-}).add('lodashPrimitive', function() {
+suite.add('lodashPrimitive', function() {
 	_.intersection(args1,args2);
 }).add('benviePrimitive', function() {
 	benvie(args1,args2);
 }).add('lovasoaPrimitive', function() {
 	lovasoa(args1,args2);
+}).add('intersectorPrimitive', function() {
+	primitiveIntersect(args1,args2);
 })
-.add('intersectorObject', function() {
-	objectIntersect(oargs1,oargs2);
-}).add('lodashObject', function() {
+.add('lodashObject', function() {
 	_.intersection(oargs1,oargs2);
 })
 .add('benvieObject', function() {
 	benvie(oargs1,oargs2);
+}).add('intersectorObject', function() {
+	objectIntersect(oargs1,oargs2);
 })// add listeners
 .on('cycle', function(event) {
 	console.log(String(event.target));

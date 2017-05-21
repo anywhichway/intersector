@@ -20,45 +20,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 (function() {
-	function intersector(booleanOrUniqueKeyProperty) {
-		var key;
-		if(typeof(booleanOrUniqueKeyProperty)==="string") {
-			key = booleanOrUniqueKeyProperty;
-		}
-		return function() {
-			var min = Infinity, // length of shortest array argument
-				shrtst = 0, // index of shortest array argument
-				set = (!key && booleanOrUniqueKeyProperty ? new Set() : {});
-				rslt = [], // result
-				mxj = arguments.length-1;
-			for(var j=0;j<=mxj;j++) { // find index of shortest array argument
-				var l = arguments[j].length;
-				if(l<min) {
-					shrtst = j;
-					min = l;
-				}
-			}
-			var shrt = arguments[shrtst],
-				mxi = shrt.length;
-			for(var i=0;i<mxi;i++) { // initialize set of possible values from shortest array
-				if(key) {
-					set[shrt[i][key]] = 1;
-				} else if(booleanOrUniqueKeyProperty) { 
-					set.add(shrt[i]) 
-				} else { 
-					set[shrt[i]]=1 
-				}
-			}
-			for(var j=0;j<=mxj;j++) { // loop through all array arguments
-				var	array = arguments[j],
-					mxk = array.length;
-				for(var k=0;k<mxk;k++) { // loop through all values
-					var item = array[k];
-					if((key && set[item[key]]) || (!key && booleanOrUniqueKeyProperty && set.has(item)) || (!booleanOrUniqueKeyProperty && set[item])) { // if value is possible
-						if(j===mxj) { // and all arrays have it (or we would not be at this point)
-							rslt.push(item); // add to results
-						}
-					}
+	"use strict"
+	const intersector = objects => {
+		const key = (typeof(objects)==="string" ? objects : false);
+		return function intersection() {
+			const args = [].slice.call(arguments),
+				rslt = [];
+			args.sort((a, b) => a.length - b.length);
+			// create a set or key map for core comparison
+			const set = (objects===true ? new Set(args[0]) : args[0].reduce((accu,curr) => { if(key) { accu[curr[key]]=1 } else { accu[curr]=1 } return accu; },{})), 
+				mxi = args.length-1;
+			// loop through all array arguments
+			for(let i=0;i<=mxi;i++) { 
+				const array = args[i];
+				// loop through all values
+				for(let item of array) {
+					// save if value is possible and and all arrays have it
+					if((objects ? (key ? set[item[key]] :  set.has(item)) : set[item]) && i===mxi) rslt.push(item);
 				}
 			}
 			return rslt;
