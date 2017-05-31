@@ -73,6 +73,8 @@ In browser:
 
 # Updates (reverse chronological order)
 
+2017-05-29 v1.0.12 - Fixed bug with keyed objects. If a key way undefined on an object, the code would include it.
+
 2017-05-21 v1.0.10 - Minor optimization, moved sort function to be predifined instead of within lexical scope of sort call.
 
 2017-05-21 v1.0.9 - Reverted to `var`, it is slightly faster. Reduced code size by 50%. Improved performance for objects.

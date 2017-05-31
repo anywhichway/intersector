@@ -30,7 +30,7 @@ SOFTWARE.
 				mxi = arguments.length-1,
 				set;
 			args.sort(sorter);
-			set = (objects && !key ? set = new Set(args[0]) : {});
+			set = (objects && !key ? set = new Set() : {});
 			// loop through all array arguments
 			for(var i=0;i<=mxi;i++) { 
 				var array = arguments[i],
@@ -41,11 +41,11 @@ SOFTWARE.
 					// initialize the possible values
 					if(i===0) {
 						if(!objects) set[item] = 1;
-						else if(key) set[item[key]] = 1;
-						// if using Set, already initialized
+						else if(key) item[key]===undefined || (set[item[key]] = 1);
+						else set.add(item);
 					}
 					// save if value is possible and and all arrays have it
-					if((!objects ? set[item] : (key ? set[item[key]] :  set.has(item))) && i===mxi) rslt.push(item);
+					if((!objects ? set[item] : (key ? item[key] && set[item[key]] :  set.has(item))) && i===mxi) rslt.push(item);
 				}
 			}
 			return rslt;
