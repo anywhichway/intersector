@@ -1,6 +1,6 @@
 # intersector
 
-Superfast intersection supporting primitives and objects. In the age of big data, you need it.
+Superfast intersection supporting primitives and objects. Up to 2x to 3x faster than other libraries. In the age of big data, you need it.
 
 Just 411 bytes of ES5 compatible minified code with no dependencies when compressed with [CloakedJS](https://cloakedjs.com/). 282 bytes gzipped.
 
@@ -93,6 +93,8 @@ In browser:
 ```
 
 # Updates (reverse chronological order)
+
+2020-07-14 v1.0.14 - Documentation updates.
 
 2020-07-13 v1.0.13 - Optimized further for size and speed.
 
