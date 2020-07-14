@@ -1,10 +1,15 @@
+var assert = require("assert");
+
 var Benchmark = require("benchmark"),
 intersector = require("../../index.js"),
 _ = require("lodash");
 
+var fastArrayIntersect = require("fast_array_intersect").default;
+
 var suite = new Benchmark.Suite,
 primitiveIntersect = intersector(),
 objectIntersect = intersector(true);
+keyedObjectIntersect = intersector("i");
 
 /*
  * https://github.com/Benvie
@@ -52,31 +57,38 @@ args1 = [];
 for(var i=0;i<100000;i++) {
 	args1.push(i);
 }
-var args2 = args1.slice(50000);
+var args2 = args1.slice(expected);
 var oargs1 = [];
-expected = 50000;
 for(var i=0;i<100000;i++) {
 	oargs1.push({i:i});
 }
-var oargs2 = oargs1.slice(50000);
+var oargs2 = oargs1.slice(expected);
 
 //add tests
 suite.add('lodashPrimitive', function() {
-	_.intersection(args1,args2);
+	assert(_.intersection(args1,args2).length===expected);
 }).add('benviePrimitive', function() {
-	benvie(args1,args2);
+	assert(benvie(args1,args2).length===expected);
 }).add('lovasoaPrimitive', function() {
-	lovasoa(args1,args2);
+	assert(lovasoa(args1,args2).length===expected);
+}).add('fastArrayIntersect', function() {
+	assert(fastArrayIntersect([args1,args2]).length===expected);
 }).add('intersectorPrimitive', function() {
-	primitiveIntersect(args1,args2);
+	assert(primitiveIntersect(args1,args2).length===expected);
 })
 .add('lodashObject', function() {
-	_.intersection(oargs1,oargs2);
+	assert(_.intersection(oargs1,oargs2).length===expected);
 })
 .add('benvieObject', function() {
-	benvie(oargs1,oargs2);
+	assert(benvie(oargs1,oargs2).length===expected);
+}).add('fastArrayIntersectObject', function() {
+	assert(fastArrayIntersect([oargs1,oargs2]).length===expected);
 }).add('intersectorObject', function() {
-	objectIntersect(oargs1,oargs2);
+	assert(objectIntersect(oargs1,oargs2).length===expected);
+}).add('fastArrayIntersectKeyedObject', function() {
+	assert(fastArrayIntersect([oargs1,oargs2],(el) => el["i"]).length===expected);
+}).add('intersectorKeyedObject', function() {
+	assert(keyedObjectIntersect(oargs1,oargs2).length===expected);
 })// add listeners
 .on('cycle', function(event) {
 	console.log(String(event.target));

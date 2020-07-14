@@ -1,13 +1,13 @@
 {
   "name": "intersector",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Superfast intersection supporting primitives and objects. In the age of big data, you need it.",
   "main": "index.js",
   "client": "./browser/intersector.js",
   "reveal": true,
   "isomorphic": true,
   "scripts": {
-    "test": "keys.bat && istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec && cat coverage/lcov.info | node_modules\\.bin\\codacy-coverage",
+    "test": "istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec && cat coverage/lcov.info",
     "prepublish": "cp index.js browser/intersector.js"
   },
   "repository": {
@@ -17,6 +17,7 @@
   "keywords": [
     "intersect",
     "intersection",
+    "fast-array-intersect",
     "benvie",
     "lovasoa",
     "lodash"
@@ -28,16 +29,15 @@
   },
   "homepage": "https://github.com/anywhichway/intersector#readme",
   "devDependencies": {
-    "benchmark": "^2.1.3",
+    "benchmark": "^2.1.4",
     "blanket": "^1.2.3",
-    "chai": "^3.4.1",
-    "codacy-coverage": "^2.0.0",
-    "codeclimate-test-reporter": "^0.2.0",
-    "istanbul": "^0.4.2",
-    "lodash": "^4.17.4",
-    "mocha": "^2.3.4"
+    "chai": "^4.2.0",
+    "codacy-coverage": "^3.4.0",
+    "codeclimate-test-reporter": "^0.5.1",
+    "fast_array_intersect": "^1.1.0",
+    "istanbul": "^0.4.5",
+    "lodash": "^4.17.19",
+    "mocha": "^8.0.1"
   },
-  "dependencies": {
-   
-  }
+  "dependencies": {}
 }
