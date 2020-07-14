@@ -22,15 +22,12 @@ SOFTWARE.
 (function() {
 	"use strict"
 	function intersector(objects) {
-		function sorter(a,b) { return a.length - b.length }
-		var key = (typeof(objects)==="string" ? objects : false);
+		var key = (typeof(objects)==="string" ? objects : false)
 		return function intersection() {
-			var args = [].slice.call(arguments),
-				rslt = [],
+			var rslt = [],
 				mxi = arguments.length-1,
 				set;
-			args.sort(sorter);
-			set = (objects && !key ? set = new Set(args[0]) : {});
+			set = (objects && !key ? set = new Set() : {});
 			// loop through all array arguments
 			for(var i=0;i<=mxi;i++) { 
 				var array = arguments[i],
@@ -40,12 +37,15 @@ SOFTWARE.
 					var item = array[j];
 					// initialize the possible values
 					if(i===0) {
-						if(!objects) set[item] = 1;
-						else if(key) set[item[key]] = 1;
-						// if using Set, already initialized
+						if(objects) {
+							if(key) item[key]===undefined || (set[item[key]] = 1);
+							else set.add(item);
+						} else {
+							set[item] = 1;
+						}
 					}
 					// save if value is possible and and all arrays have it
-					if((!objects ? set[item] : (key ? set[item[key]] :  set.has(item))) && i===mxi) rslt.push(item);
+					if(i===mxi && (!objects ? set[item] : (key ? item[key] && set[item[key]] :  set.has(item)))) rslt.push(item);
 				}
 			}
 			return rslt;
