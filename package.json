@@ -1,14 +1,15 @@
 {
   "name": "intersector",
-  "version": "1.0.14",
-  "description": "Superfast intersection supporting primitives and objects.  Up to 2x to 3x faster than other libraries. In the age of big data, you need it.",
+  "version": "1.0.15",
+  "description": "Superfast intersection supporting primitives and objects.  Up to 3x faster than other libraries. In the age of big data, you need it.",
   "main": "index.js",
   "client": "./browser/intersector.js",
   "reveal": true,
   "isomorphic": true,
   "scripts": {
     "test": "istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec && cat coverage/lcov.info",
-    "prepublish": "cp index.js browser/intersector.js"
+    "prepublish": "cp index.js browser/intersector.js && npm run minify",
+    "minify": "minify browser/intersector.js > browser/intersector.min.js"
   },
   "repository": {
     "type": "git",

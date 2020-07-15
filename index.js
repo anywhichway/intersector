@@ -21,13 +21,13 @@ SOFTWARE.
  */
 (function() {
 	"use strict"
-	function intersector(objects) {
-		var key = (typeof(objects)==="string" ? objects : false)
-		return function intersection() {
+	/* optimize for speed not size */
+	function intersector(objectsMixedOrKey) {
+		var key = (typeof(objectsMixedOrKey)==="string" ? objectsMixedOrKey : false);
+		function objectHandler() {
 			var rslt = [],
 				mxi = arguments.length-1,
-				set;
-			set = (objects && !key ? set = new Set() : {});
+				set = new Set();
 			// loop through all array arguments
 			for(var i=0;i<=mxi;i++) { 
 				var array = arguments[i],
@@ -36,20 +36,44 @@ SOFTWARE.
 				for(var j=0;j<mxj;j++) {
 					var item = array[j];
 					// initialize the possible values
-					if(i===0) {
-						if(objects) {
-							if(key) item[key]===undefined || (set[item[key]] = 1);
-							else set.add(item);
-						} else {
-							set[item] = 1;
-						}
-					}
-					// save if value is possible and and all arrays have it
-					if(i===mxi && (!objects ? set[item] : (key ? item[key] && set[item[key]] :  set.has(item)))) rslt.push(item);
+					i!==0 || set.add(item);
+					// save if all arrays have it
+					if(i===mxi && set.has(item)) rslt.push(item);
 				}
 			}
 			return rslt;
 		}
+		function keyedHandler() {
+			var rslt = [],
+				mxi = arguments.length-1,
+				set = {};
+			for(var i=0;i<=mxi;i++) { 
+				var array = arguments[i],
+					mxj = array.length;
+				for(var j=0;j<mxj;j++) {
+					var item = array[j];
+					i!==0 || item[key]===undefined || (set[item[key]] = 1);
+					if(i===mxi && set[item[key]]) rslt.push(item);
+				}
+			}
+			return rslt;
+		}
+		function primitiveHandler() {
+			var rslt = [],
+				mxi = arguments.length-1,
+				set = {};
+			for(var i=0;i<=mxi;i++) { 
+				var array = arguments[i],
+					mxj = array.length;
+				for(var j=0;j<mxj;j++) {
+					var item = array[j];
+					i!==0 || (set[item] = 1);
+					if(i===mxi && set[item]) rslt.push(item);
+				}
+			}
+			return rslt;
+		}
+		return key ? keyedHandler : objectsMixedOrKey ? objectHandler : primitiveHandler;ZZZZZ
 	}
 	if(typeof(module)!=="undefined") {
 		module.exports = intersector;
