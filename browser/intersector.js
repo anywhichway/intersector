@@ -73,7 +73,7 @@ SOFTWARE.
 			}
 			return rslt;
 		}
-		return key ? keyedHandler : objectsMixedOrKey ? objectHandler : primitiveHandler;ZZZZZ
+		return key ? keyedHandler : objectsMixedOrKey ? objectHandler : primitiveHandler;
 	}
 	if(typeof(module)!=="undefined") {
 		module.exports = intersector;

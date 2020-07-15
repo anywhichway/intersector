@@ -95,6 +95,8 @@ In browser:
 
 # Updates (reverse chronological order)
 
+2020-07-15 v1.0.16	- The cat stepped on the keyboard right before a commit and inserted some random stuff (really! ;-) ;-(). Fixed.
+
 2020-07-15 v1.0.15 - Split into three internal functions. Slight speed and size improvement. Speed more consistent across test runs. Easier to maintain. Thanks @titoBouzout!
 
 2020-07-14 v1.0.14 - Documentation updates.
