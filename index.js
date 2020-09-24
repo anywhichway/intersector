@@ -77,7 +77,9 @@ SOFTWARE.
 	}
 	if(typeof(module)!=="undefined") {
 		module.exports = intersector;
-	} else {
-		this.intersector = intersector;
+	} 
+	if(typeof(window)!=="undefined") {
+		window.intersector = intersector;
 	}
+	this.intersector = intersector;
 }).call(this);
