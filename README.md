@@ -10,7 +10,7 @@ TWICE the speed of the next fastest (lovasoa) for primitve values.
 
 Over THREE times the speed of any other library for keyed objects.
 
-
+[![Generic badge](https://img.shields.io/badge/Downrunner-Runnable-green.svg)](https://anywhichway.github.io/intersector)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=anywhichway/intersector&amp;utm_campaign=Badge_Grade)
 
 Below are node.js v12 benchmarks for v1.0.13 in a 4 core i7 2.86gz Debian 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result.
