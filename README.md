@@ -10,7 +10,7 @@ TWICE the speed of the next fastest (lovasoa) for primitve values.
 
 Over THREE times the speed of any other library for keyed objects.
 
-[![Generic badge](https://img.shields.io/badge/Downrunner-Runnable-green.svg)](https://anywhichway.github.io/intersector/downrunner.html)
+[![Generic badge](https://img.shields.io/badge/Downrunner-Runnable-green.svg)](https://anywhichway.github.io/intersector)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=anywhichway/intersector&amp;utm_campaign=Badge_Grade)
 
 Below are node.js v12 benchmarks for v1.0.13 in a 4 core i7 2.86gz Debian 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result.
@@ -49,7 +49,9 @@ benvieObject x 14.43 ops/sec ±5.22% (40 runs sampled)
 
 # Installing
 
+```
 npm install intersector
+```
 
 or
 
@@ -67,31 +69,35 @@ The returned intersection function can take any number of arguments.
 
 In NodeJS:
 
-```
+```javascript
 var intersector = require("intersector"),
-	primitiveIntersect = intersector(),
-	objectIntersect = intersector(true);
-	primitiveIntersect([1,2,3],[3,2]); // will return [3,2]
-	var o1 = {o:1},
-		o2 = {o:2},
-		o3 = {o:3};
-	objectIntersect([o1,o2,o3],[o3,o2]); // will return [o3,o2];
 ```
 
 In browser:
 
+
+```html
+<script src="./browser/intersector.js"></script>
 ```
-<script src="intersector.js"></script>
-<script>
-	var primitiveIntersect = intersector(),
-		objectIntersect = intersector(true);
-	primitiveIntersect([1,2,3],[3,2]); // will return [2,3]
-	var o1 = {o:1},
-		o2 = {o:2},
-		o3 = {o:3};
-	objectIntersect([o1,o2,o3],[o3,o2]); // will return [o2,o3];
-</script>
+
+## Primitive Intersection
+<downrunner id="primitive" console="primitive-console" scripts="./browser/intersector.js"></downrunner>
+```javascript
+var primitiveIntersect = intersector();
+console.log(primitiveIntersect([1,2,3],[3,2])); // [3,2]
 ```
+
+## Object Intersection
+<downrunner id="object" console="object-console" scripts="./browser/intersector.js"></downrunner>
+```javascript
+var objectIntersect = intersector(true);
+var o1 = {o:1},
+	o2 = {o:2},
+	o3 = {o:3};
+console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
+```
+
+<script src="https://downrunner.com/downrunner.js"></script>
 
 # Updates (reverse chronological order)
 
