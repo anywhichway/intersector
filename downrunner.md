@@ -80,12 +80,14 @@ In browser:
 <script src="./browser/intersector.js"></script>
 ```
 
+## Primitive Intersection
 <downrunner id="primitive" console="primitive-console" scripts="./browser/intersector.js"></downrunner>
 ```javascript
-	var primitiveIntersect = intersector(),
+	var primitiveIntersect = intersector();
 	console.log(primitiveIntersect([1,2,3],[3,2])); // [2,3]
 ```
 
+## Object Intersection
 <downrunner id="object" console="object-console" scripts="./browser/intersector.js"></downrunner>
 ```javascript
 	var objectIntersect = intersector(true);
