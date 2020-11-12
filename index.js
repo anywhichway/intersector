@@ -24,54 +24,92 @@ SOFTWARE.
 	/* optimize for speed not size */
 	function intersector(objectsMixedOrKey) {
 		var key = (typeof(objectsMixedOrKey)==="string" ? objectsMixedOrKey : false);
-		function objectHandler() {
-			var rslt = [],
-				mxi = arguments.length-1,
-				set = new Set();
-			// loop through all array arguments
-			for(var i=0;i<=mxi;i++) { 
-				var array = arguments[i],
-					mxj = array.length;
-				// loop through all values
-				for(var j=0;j<mxj;j++) {
-					var item = array[j];
-					// initialize the possible values
-					i!==0 || set.add(item);
-					// save if all arrays have it
-					if(i===mxi && set.has(item)) rslt.push(item);
+		function objectHandler(...args) {
+			const memory=new Map(),
+				maxlen = args.length-1,
+				result = [];
+			let i, n, len, j, elem;
+			args.sort((a,b) => a.length - b.length);
+		
+		  for (i=0; i<=maxlen; i++) {
+			len = args[i].length;
+			 for (j=0; j<len; j++) {
+				elem = args[i][j];
+				if (i===0) {
+					memory.set(elem,0);
+					continue;
 				}
+				if(memory.get(elem) !== i-1) {
+					continue;
+				}
+				if(i === maxlen) {
+					result.push(elem);
+					memory.set(elem,0);
+					continue;
+				}
+				memory.set(elem,i)
 			}
-			return rslt;
+		  }
+		  return result;
 		}
-		function keyedHandler() {
-			var rslt = [],
-				mxi = arguments.length-1,
-				set = {};
-			for(var i=0;i<=mxi;i++) { 
-				var array = arguments[i],
-					mxj = array.length;
-				for(var j=0;j<mxj;j++) {
-					var item = array[j];
-					i!==0 || item[key]===undefined || (set[item[key]] = 1);
-					if(i===mxi && set[item[key]]) rslt.push(item);
+		function keyedHandler(...args) {
+			const memory={},
+				maxlen = args.length-1,
+				result = [];
+			let i, n, len, j, elem;
+			args.sort((a,b) => a.length - b.length);
+		
+		  for (i=0; i<=maxlen; i++) {
+			 n = (i===0)?0:(i||0);
+			len = args[i].length;
+			for (j=0; j<len; j++) {
+				elem = args[i][j];
+				if(i===0) {
+					 memory[elem[key]]=0;
+					continue;
 				}
+				if(memory[elem[key]] !== i-1) {
+					continue;
+				}
+				if(i === maxlen) {
+					result.push(elem);
+					memory[elem[key]]=0;
+					continue;
+				}
+				memory[elem[key]]=i;
 			}
-			return rslt;
+		  }
+		  return result;
 		}
-		function primitiveHandler() {
-			var rslt = [],
-				mxi = arguments.length-1,
-				set = {};
-			for(var i=0;i<=mxi;i++) { 
-				var array = arguments[i],
-					mxj = array.length;
-				for(var j=0;j<mxj;j++) {
-					var item = array[j];
-					i!==0 || (set[item] = 1);
-					if(i===mxi && set[item]) rslt.push(item);
+		
+		function primitiveHandler(...args) {
+			const memory={},
+				maxlen = args.length-1,
+				result = [];
+			let i, n, len, j, elem;
+			args.sort((a,b) => a.length - b.length);
+		
+		  for (i=0; i<=maxlen; i++) {
+			len = args[i].length;
+			for (j=0; j<len; j++) {
+				elem = args[i][j];
+				if(i===0) {
+					 memory[elem]=0;
+					continue;
 				}
+				if(memory[elem] !== i-1) {
+					continue;
+				}
+				if(i === maxlen) {
+					//result.push(elem);
+					result[result.length] = elem;
+					memory[elem]=0;
+					continue;
+				  }
+				memory[elem]=i;
 			}
-			return rslt;
+		  }
+		  return result;
 		}
 		return key ? keyedHandler : objectsMixedOrKey ? objectHandler : primitiveHandler;
 	}

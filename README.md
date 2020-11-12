@@ -2,51 +2,65 @@
 
 Superfast intersection supporting primitives and objects. Up to 2x to 3x faster than other libraries. In the age of big data, you need it.
 
-Just 685 bytes of ES5 compatible minified code with no dependencies when compressed with [CloakedJS](https://cloakedjs.com/). 330 bytes gzipped.
+Just 990 bytes of ES5 compatible minified code with no dependencies when compressed with [CloakedJS](https://cloakedjs.com/). 428 bytes gzipped.
 
-TWICE the speed of the next fastest (lovasoa) for primitve values.
+15% faster than the next fastest (lovasoa) for primitve values.
 
 15% faster than the next fastest (fast-array-intersect) for keyed objects.
 
-Over THREE times the speed of any other library for keyed objects.
+TWICE the speed of the next fastest (fast-array-intersect) for keyed objects.
+
 
 [![Generic badge](https://img.shields.io/badge/Downrunner-Runnable-green.svg)](https://anywhichway.github.io/intersector)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=anywhichway/intersector&amp;utm_campaign=Badge_Grade)
 [![Generic badge](https://img.shields.io/badge/GitHub-Repsitory-green.svg)](https://www.github.com/anywhichway/intersector)
 
-Below are node.js v12 benchmarks for v1.0.13 in a 4 core i7 2.86gz Debian 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result.
+
+## Raw Power Test
+
+Below are node.js v12 benchmarks for v1.1.1 in a 4 core i7 2.86gz Debian 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result.
+
+To run the test in the test/benchmark directory:
 
 ```
-intersectorPrimitive x 269 ops/sec ±0.90% (84 runs sampled)
-lovasoaPrimitive x 118 ops/sec ±2.08% (75 runs sampled)
-fastArrayIntersect x 78.16 ops/sec ±1.52% (67 runs sampled)
-lodashPrimitive x 61.80 ops/sec ±1.51% (64 runs sampled)
-benviePrimitive x 47.92 ops/sec ±2.78% (63 runs sampled)
-```
-
-```
-intersectorKeyedObject x 248 ops/sec ±1.16% (82 runs sampled)
-intersectorObject x 85.81 ops/sec ±2.34% (73 runs sampled)
-fastArrayIntersectObject x 75.59 ops/sec ±1.67% (65 runs sampled)
-fastArrayIntersectKeyedObject x 65.99 ops/sec ±1.34% (68 runs sampled)
-lodashObject x 41.69 ops/sec ±4.81% (55 runs sampled)
-benvieObject x 41.35 ops/sec ±7.02% (56 runs sampled)
-```
-
-node.js v8 benchmarks with intersector v1.0.12 in a 4 core i7 2.86gz Windows 64bit environment:
-
-```
-intersectorPrimitive x 146 ops/sec ±1.81% (79 runs sampled)
-lovasoaPrimitive x 86.73 ops/sec ±2.93% (73 runs sampled)
-lodashPrimitive x 46.62 ops/sec ±3.29% (60 runs sampled)
-benviePrimitive x 11.90 ops/sec ±5.29% (34 runs sampled)
+node index.js
 ```
 
 ```
-intersectorObject x 31.08 ops/sec ±2.78% (54 runs sampled)
-lodashObject x 14.15 ops/sec ±5.90% (40 runs sampled)
-benvieObject x 14.43 ops/sec ±5.22% (40 runs sampled)
+lodashPrimitive x 64.38 ops/sec ±1.34% (66 runs sampled)
+benviePrimitive x 48.18 ops/sec ±4.42% (61 runs sampled)
+lovasoaPrimitive x 105 ops/sec ±3.43% (68 runs sampled)
+fastArrayIntersect x 71.50 ops/sec ±4.00% (62 runs sampled)
+intersectorPrimitive x 121 ops/sec ±3.25% (68 runs sampled)
 ```
+
+```
+lodashObject x 46.42 ops/sec ±1.90% (61 runs sampled)
+benvieObject x 37.77 ops/sec ±5.91% (50 runs sampled)
+fastArrayIntersectObject x 66.50 ops/sec ±4.46% (58 runs sampled)
+intersectorObject x 81.58 ops/sec ±3.82% (71 runs sampled)
+```
+
+```
+fastArrayIntersectKeyedObject x 60.94 ops/sec ±2.36% (63 runs sampled)
+intersectorKeyedObject x 125 ops/sec ±2.64% (80 runs sampled)
+
+```
+
+## Real World Simulation
+
+In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The results vary with intersector generally being the fastest but fast-array-intersect
+occassionally winning. To run this test in the test/benchmark directory:
+
+```
+node index2.js
+```
+
+# Credits
+
+The underlying alogrithm is beased heavily on the orginal lovaso algorithm. Moder JavaScript constructs such has `const` have been used so the compiler can do more optimization. Additionally,
+short circuit `continue` statements have ben used in for loops, which sometimes seems to improve performance. This was a trial and error process.
+
 
 # Installing
 
@@ -101,6 +115,9 @@ console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 <script src="https://downrunner.com/downrunner.js"></script>
 
 # Updates (reverse chronological order)
+
+2020-11-06 v1.1.0 - Addressed a major bug where intersector was returning incorrect results when provided 3 or more arguments. As a result, inetersector is slightly slower but still
+the fastest across primitives, keyed objects, and full objects. Add more unit tests and a more realistic benchmark test to avoid this kind of thing in the future!
 
 2020-09-24 v1.0.17 - Added Downrunner documentation support. Improved browser export.
 
