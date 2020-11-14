@@ -49,7 +49,7 @@ intersectorKeyedObject x 125 ops/sec ±2.64% (80 runs sampled)
 
 ## Real World Simulation
 
-In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The results vary with intersector generally being the fastest but fast-array-intersect
+In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The results vary with intersector generally being the fastest but with fast-array-intersect
 occassionally winning. To run this test in the test/benchmark directory:
 
 ```
@@ -58,8 +58,8 @@ node index2.js
 
 # Credits
 
-The underlying alogrithm is beased heavily on the orginal lovaso algorithm. Moder JavaScript constructs such has `const` have been used so the compiler can do more optimization. Additionally,
-short circuit `continue` statements have ben used in for loops, which sometimes seems to improve performance. This was a trial and error process.
+The underlying alogrithm is based heavily on the orginal lovaso algorithm. Modern JavaScript constructs such has `const` have been used so the compiler can do more optimization. Additionally,
+short circuit `continue` statements have been used in for loops, which sometimes seems to improve performance. This was a trial and error process.
 
 
 # Installing
@@ -117,7 +117,7 @@ console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 # Updates (reverse chronological order)
 
 2020-11-06 v1.1.0 - Addressed a major bug where intersector was returning incorrect results when provided 3 or more arguments. As a result, inetersector is slightly slower but still
-the fastest across primitives, keyed objects, and full objects. Add more unit tests and a more realistic benchmark test to avoid this kind of thing in the future!
+the fastest across primitives, keyed objects, and full objects. Added more unit tests and a more realistic benchmark test to avoid this kind of thing in the future!
 
 2020-09-24 v1.0.17 - Added Downrunner documentation support. Improved browser export.
 
