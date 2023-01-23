@@ -29,31 +29,30 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
- */ function $99faf78296dd76aa$export$2f3eb4d6eb4663c9(objectsMixedOrKey) {
+ */ const $99faf78296dd76aa$var$shortest = (args)=>{
+    const len = args.length;
+    let i = 0, j = 0, min = args[0].length;
+    for(; i < len; i++)if (args[i].length < min) {
+        min = args[i].length;
+        j = i;
+    }
+    return j;
+};
+function $99faf78296dd76aa$export$2f3eb4d6eb4663c9(objectsMixedOrKey) {
     const key = typeof objectsMixedOrKey === "string" ? objectsMixedOrKey : false;
     function objectHandler(...args) {
-        const memory = new Map(), maxlen = args.length - 1, result = new Set();
-        let i, n, len, j, elem;
+        const shortestIndex = $99faf78296dd76aa$var$shortest(args), maxlen = args.length - 1;
+        let memory = new Set();
         args.sort((a, b)=>a.length - b.length);
-        for(i = 0; i <= maxlen; i++){
-            len = args[i].length;
-            for(j = 0; j < len; j++){
-                elem = args[i][j];
-                if (i === 0) {
-                    memory.set(elem, 0);
-                    continue;
-                }
-                if (memory.get(elem) !== i - 1) continue;
-                if (i === maxlen) {
-                    result.add(elem);
-                    memory.set(elem, 0);
-                    continue;
-                }
-                memory.set(elem, i);
-            }
+        for (const item of args[0])memory.add(item);
+        for(let i = 1; i <= maxlen; i++){
+            const found = new Set();
+            for (const item of args[i])if (memory.has(item)) found.add(item);
+            if (found.size === 0) return [];
+            if (found.size < memory.size) memory = found;
         }
         return [
-            ...result
+            ...memory
         ];
     }
     function keyedHandler(...args) {
@@ -83,30 +82,19 @@ SOFTWARE.
         ];
     }
     function primitiveHandler(...args) {
-        const memory = {}, maxlen = args.length - 1, result = new Set();
-        let i, n, len, j, elem;
+        const memory = new Set(), shortestIndex = $99faf78296dd76aa$var$shortest(args), maxlen = args.length - 1;
         args.sort((a, b)=>a.length - b.length);
-        for(i = 0; i <= maxlen; i++){
-            len = args[i].length;
-            for(j = 0; j < len; j++){
-                elem = args[i][j];
-                if (i === 0) {
-                    memory[elem] = 0;
-                    continue;
-                }
-                if (memory[elem] !== i - 1) continue;
-                if (i === maxlen) {
-                    //result.push(elem);
-                    //result[result.length] = elem;
-                    result.add(elem);
-                    memory[elem] = 0;
-                    continue;
-                }
-                memory[elem] = i;
+        for (const item of args[0])memory.add(item);
+        for(let i = 1; i <= maxlen; i++){
+            let found;
+            for (const item of args[i]){
+                found = memory.has(item);
+                if (found) break;
             }
+            if (!found) return [];
         }
         return [
-            ...result
+            ...memory
         ];
     }
     return key ? keyedHandler : objectsMixedOrKey ? objectHandler : primitiveHandler;

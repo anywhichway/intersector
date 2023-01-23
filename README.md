@@ -27,39 +27,33 @@ node index.js
 ```
 
 ```
-lodashPrimitive x 64.38 ops/sec ±1.34% (66 runs sampled)
-benviePrimitive x 48.18 ops/sec ±4.42% (61 runs sampled)
-lovasoaPrimitive x 105 ops/sec ±3.43% (68 runs sampled)
-fastArrayIntersect x 71.50 ops/sec ±4.00% (62 runs sampled)
-intersectorPrimitive x 121 ops/sec ±3.25% (68 runs sampled)
+lodashPrimitive x 69.90 ops/sec ±1.64% (72 runs sampled)
+benviePrimitive x 66.35 ops/sec ±1.90% (69 runs sampled)
+lovasoaPrimitive x 137 ops/sec ±1.74% (77 runs sampled)
+fastArrayIntersectPrimitive x 102 ops/sec ±1.44% (75 runs sampled)
+intersectorPrimitive x 191 ops/sec ±1.31% (81 runs sampled)
+
 ```
 
 ```
-lodashObject x 46.42 ops/sec ±1.90% (61 runs sampled)
-benvieObject x 37.77 ops/sec ±5.91% (50 runs sampled)
-fastArrayIntersectObject x 66.50 ops/sec ±4.46% (58 runs sampled)
-intersectorObject x 81.58 ops/sec ±3.82% (71 runs sampled)
+lodashObject x 68.81 ops/sec ±1.53% (71 runs sampled)
+benvieObject x 63.21 ops/sec ±2.67% (66 runs sampled)
+fastArrayIntersectObject x 100 ops/sec ±1.37% (73 runs sampled)
+intersectorObject x 101 ops/sec ±1.66% (74 runs sampled)
 ```
 
 ```
-fastArrayIntersectKeyedObject x 60.94 ops/sec ±2.36% (63 runs sampled)
-intersectorKeyedObject x 125 ops/sec ±2.64% (80 runs sampled)
-
+fastArrayIntersectKeyedObject x 87.19 ops/sec ±1.46% (74 runs sampled)
+intersectorKeyedObject x 99.36 ops/sec ±2.67% (74 runs sampled)
 ```
 
 ## Real World Simulation
 
-In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The results vary with intersector generally being the fastest but with fast-array-intersect
-occassionally winning. To run this test in the test/benchmark directory:
+In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The `intersector` function is consistently 50% to 100% the faster than other functions. To run this test in the test/benchmark directory:
 
 ```
 node index2.js
 ```
-
-# Credits
-
-The underlying alogrithm is based heavily on the orginal lovaso algorithm. Modern JavaScript constructs such has `const` have been used so the compiler can do more optimization. Additionally,
-short circuit `continue` statements have been used in for loops, which sometimes seems to improve performance. This was a trial and error process.
 
 
 # Installing
@@ -91,11 +85,15 @@ The returned intersection function can take any number of arguments.
 In NodeJS:
 
 ```javascript
-const intersector = require("intersector");
+const intersector = require("intersector").default;
+```
+or
+
+```javascript
+import intersector from "intersector"; 
 ```
 
 In browser:
-
 
 ```
 <script src="./dist/intersector.js"></script>
@@ -116,8 +114,28 @@ var o1 = {o:1},
 console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 ```
 
+## Keyed Object Intersection
+```javascript
+var objectIntersect = intersector("uniqueId");
+var o1 = {uniqueId:1},
+	o2 = {uniqueId:2},
+	o3 = {uniqueId:3};
+console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
+```
+
+# Algorithm
+
+1. Determine the shortest array passed as an argument. It's members, as a Set, constitute the maximum intersection.
+2. Iterate over each other array and collect the items that are also in the maximum intersection into an intermediate Set.
+   1. If the intermediate Set is empty, return an empty array because there is no intersection of all arrays.
+   2. If the intermediate Set is shorter than the maximum intersection Set, set the maximum intersection Set to the intermediate Set
+3. Return the maximum intersection Set as an array.
 
 # Updates (reverse chronological order)
+
+2023-01-23 v2.1.0 - Reworked internals for more speed.
+
+2023-01-23 v2.0.1 - Added doc for keyed object intersection. Added doc for module usage.
 
 2023-01-23 v2.0.0 - Ensure no duplicates in returned value by using `Set` internally. Moved to module format. Updated dev dependencies to remove some security risks.
 
