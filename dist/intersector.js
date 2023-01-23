@@ -7,8 +7,8 @@ function $parcel$export(e, n, v, s) {
 
 $parcel$defineInteropFlag(module.exports);
 
-$parcel$export(module.exports, "intersector", () => $99faf78296dd76aa$export$2f3eb4d6eb4663c9);
-$parcel$export(module.exports, "default", () => $99faf78296dd76aa$export$2f3eb4d6eb4663c9);
+$parcel$export(module.exports, "intersector", () => $4fa36e821943b400$export$2f3eb4d6eb4663c9);
+$parcel$export(module.exports, "default", () => $4fa36e821943b400$export$2f3eb4d6eb4663c9);
 /* MIT License
 Copyright (c) 2016 Simon Y. Blackwell
 
@@ -29,7 +29,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
- */ function $99faf78296dd76aa$export$2f3eb4d6eb4663c9(objectsMixedOrKey) {
+ */ function $4fa36e821943b400$export$2f3eb4d6eb4663c9(objectsMixedOrKey) {
     const key = typeof objectsMixedOrKey === "string" ? objectsMixedOrKey : false;
     function objectHandler(...args) {
         const memory = new Map(), maxlen = args.length - 1, result = new Set();
@@ -113,4 +113,4 @@ SOFTWARE.
 }
 
 
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=intersector.js.map

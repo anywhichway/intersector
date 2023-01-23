@@ -1,15 +1,15 @@
 {
   "name": "intersector",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "Superfast intersection supporting primitives and objects.  Up to 2x faster than other libraries. In the age of big data, you need it.",
-  "main": "index.js",
-  "client": "./browser/intersector.js",
-  "reveal": true,
-  "isomorphic": true,
+  "source": "./src/index.js",
+  "main": "./index.js",
+  "browser": "./dist/intersector.js",
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec && cat coverage/lcov.info",
-    "prepublish": "cp index.js browser/intersector.js && npm run minify",
-    "minify": "minify browser/intersector.js > browser/intersector.min.js"
+    "test": "parcel build && istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec",
+    "prepublish": "parcel build",
+    "build": "parcel build",
+    "build-dev": "parcel watch"
   },
   "repository": {
     "type": "git",
@@ -33,12 +33,12 @@
     "benchmark": "^2.1.4",
     "blanket": "^1.2.3",
     "chai": "^4.2.0",
-    "codacy-coverage": "^3.4.0",
+    "codacy-coverage": "^3.2.0",
     "codeclimate-test-reporter": "^0.5.1",
     "fast_array_intersect": "^1.1.0",
     "istanbul": "^0.4.5",
     "lodash": "^4.17.19",
-    "mocha": "^8.0.1"
-  },
-  "dependencies": {}
+    "mocha": "^10.2.0",
+    "parcel": "^2.8.3"
+  }
 }

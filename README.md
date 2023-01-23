@@ -72,6 +72,12 @@ or
 
 Download and use the browser files from the browser directory.
 
+If you plan to run `intersectors` unit tests, then install Parcel globaly:
+
+```
+npm install -g parcel-bundler
+```
+
 # Using
 
 `intersector(objectsMixedOrKey)` is a function that returns another function configured to do array intersections. It takes one optional argument `objectsMixedOrKey`. If no 
@@ -85,25 +91,23 @@ The returned intersection function can take any number of arguments.
 In NodeJS:
 
 ```javascript
-var intersector = require("intersector"),
+const intersector = require("intersector");
 ```
 
 In browser:
 
 
-```html
-<script src="./browser/intersector.js"></script>
+```
+<script src="./dist/intersector.js"></script>
 ```
 
 ## Primitive Intersection
-<downrunner id="primitive" console="primitive-console" scripts="./browser/intersector.js"></downrunner>
 ```javascript
 var primitiveIntersect = intersector();
 console.log(primitiveIntersect([1,2,3],[3,2])); // [3,2]
 ```
 
 ## Object Intersection
-<downrunner id="object" console="object-console" scripts="./browser/intersector.js"></downrunner>
 ```javascript
 var objectIntersect = intersector(true);
 var o1 = {o:1},
@@ -112,9 +116,10 @@ var o1 = {o:1},
 console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 ```
 
-<script src="https://downrunner.com/downrunner.js"></script>
 
 # Updates (reverse chronological order)
+
+2023-01-23 v2.0.0 - Ensure no duplicates in returned value by using `Set` internally. Moved to module format. Updated dev dependencies to remove some security risks.
 
 2020-11-06 v1.1.0 - Addressed a major bug where intersector was returning incorrect results when provided 3 or more arguments. As a result, inetersector is slightly slower but still
 the fastest across primitives, keyed objects, and full objects. Added more unit tests and a more realistic benchmark test to avoid this kind of thing in the future!

@@ -4,7 +4,7 @@ var chai,
 if(typeof(window)==="undefined") {
 	chai = require("chai");
 	expect = chai.expect;
-	intersector = require("../index.js");
+	intersector = require("../dist/intersector.js").default;
 }
 
 var primitiveIntersect = intersector(),

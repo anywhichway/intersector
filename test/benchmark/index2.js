@@ -1,7 +1,7 @@
 var assert = require("assert");
 
 var Benchmark = require("benchmark"),
-intersector = require("../../index.js"),
+intersector = require("../dist/intersector.js").default,
 _ = require("lodash");
 
 var fastArrayIntersect = require("fast_array_intersect").default;
