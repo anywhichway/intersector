@@ -1,15 +1,14 @@
-var assert = require("assert");
+import assert from "assert";
+import _ from "lodash";
+import intersector from "../../index.js";
+const fastArrayIntersect = (await import("fast_array_intersect")).default.default;
 
-var Benchmark = require("benchmark"),
-intersector = require("../../dist/intersector.js").default,
-_ = require("lodash");
+const Benchmark = (await import("benchmark")).default;
 
-var fastArrayIntersect = require("fast_array_intersect").default;
-
-var suite = new Benchmark.Suite,
-primitiveIntersect = intersector(),
-objectIntersect = intersector(true);
-keyedObjectIntersect = intersector("i");
+const suite = new Benchmark.Suite,
+	primitiveIntersect = intersector(),
+	objectIntersect = intersector(true),
+	keyedObjectIntersect = intersector("i");
 
 /*
  * https://github.com/Benvie

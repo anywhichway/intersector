@@ -2,9 +2,9 @@ var chai,
 	expect,
 	intersector;
 if(typeof(window)==="undefined") {
-	chai = require("chai");
+	chai = await import("chai")
 	expect = chai.expect;
-	intersector = require("../dist/intersector.js").default;
+	intersector = (await import("../index.js")).default;
 }
 
 var primitiveIntersect = intersector(),

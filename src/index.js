@@ -35,18 +35,20 @@ const shortest = (args) => {
 function intersector(objectsMixedOrKey) {
 	const key = (typeof (objectsMixedOrKey) === "string" ? objectsMixedOrKey : false);
 
-	function objectHandler(...args) {
+	function intersect(...args) {
 		const shortestIndex = shortest(args),
 			maxlen = args.length - 1;
-		let memory = new Set();
+		let memory = new Set(),
+			found = new Set();
 
-		args.sort((a, b) => a.length - b.length);
-
-		for(const item of args[0]) {
+		for(const item of args[shortestIndex]) {
 			memory.add(item);
 		}
 
 		for (let i=1; i<=maxlen; i++) {
+			if(i===shortestIndex) {
+				continue;
+			}
 			const found = new Set();
 			for(const item of args[i]) {
 				if(memory.has(item)) {
@@ -63,61 +65,36 @@ function intersector(objectsMixedOrKey) {
 		return [...memory];
 	}
 
-	function keyedHandler(...args) {
-		const memory = {},
-			maxlen = args.length - 1,
-			result = new Set();
-		let i, n, len, j, elem;
-		args.sort((a, b) => a.length - b.length);
-
-		for (i = 0; i <= maxlen; i++) {
-			n = (i === 0) ? 0 : (i || 0);
-			len = args[i].length;
-			for (j = 0; j < len; j++) {
-				elem = args[i][j];
-				if (i === 0) {
-					memory[elem[key]] = 0;
-					continue;
-				}
-				if (memory[elem[key]] !== i - 1) {
-					continue;
-				}
-				if (i === maxlen) {
-					result.add(elem);
-					memory[elem[key]] = 0;
-					continue;
-				}
-				memory[elem[key]] = i;
-			}
-		}
-		return [...result];
-	}
-
-	function primitiveHandler(...args) {
-		const memory = new Set(),
-			shortestIndex = shortest(args),
+	function intersectKeyed(...args) {
+		const shortestIndex = shortest(args),
 			maxlen = args.length - 1;
+		let memory = new Map();
 
-		args.sort((a, b) => a.length - b.length);
-
-		for(const item of args[0]) {
-			memory.add(item);
+		for(const item of args[shortestIndex]) {
+			memory.set(item[key],item);
 		}
 
 		for (let i=1; i<=maxlen; i++) {
-			let found;
-			for(const item of args[i]) {
-				found = memory.has(item);
-				if(found) break;
+			if(i===shortestIndex) {
+				continue;
 			}
-			if(!found) {
+			const found = new Map();
+			for(const item of args[i]) {
+				if(memory.has(item[key])) {
+					found.set(item[key],item);
+				}
+			}
+			if(found.size===0) {
 				return [];
 			}
+			if(found.size < memory.size) {
+				memory = found;
+			}
 		}
-		return [...memory];
+		return [...memory.values()];
 	}
 
-	return key ? keyedHandler : objectsMixedOrKey ? objectHandler : primitiveHandler;
+	return key ? intersectKeyed : intersect;
 }
 
 export {intersector,intersector as default}

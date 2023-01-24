@@ -2,16 +2,14 @@
 
 Superfast intersection supporting primitives and objects. Up to 2x to 3x faster than other libraries. In the age of big data, you need it.
 
-Just 990 bytes of ES5 compatible minified code with no dependencies when compressed with [CloakedJS](https://cloakedjs.com/). 428 bytes gzipped.
+Just 1.2K of ES5 compatible minified code with no dependencies. 613 bytes gzipped.
 
-15% faster than the next fastest (lovasoa) for primitve values.
+1.4x faster than the next fastest (lovasoa) for primitve values.
 
-15% faster than the next fastest (fast-array-intersect) for keyed objects.
+1.75x faster than the next fastest (fast-array-intersect) for objects.
 
-TWICE the speed of the next fastest (fast-array-intersect) for keyed objects.
+1.8x faster than the next fastest (fast-array-intersect) for keyed objects.
 
-
-[![Generic badge](https://img.shields.io/badge/Downrunner-Runnable-green.svg)](https://anywhichway.github.io/intersector)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=anywhichway/intersector&amp;utm_campaign=Badge_Grade)
 [![Generic badge](https://img.shields.io/badge/GitHub-Repsitory-green.svg)](https://www.github.com/anywhichway/intersector)
 
@@ -39,22 +37,23 @@ intersectorPrimitive x 191 ops/sec ±1.31% (81 runs sampled)
 lodashObject x 68.81 ops/sec ±1.53% (71 runs sampled)
 benvieObject x 63.21 ops/sec ±2.67% (66 runs sampled)
 fastArrayIntersectObject x 100 ops/sec ±1.37% (73 runs sampled)
-intersectorObject x 101 ops/sec ±1.66% (74 runs sampled)
+intersectorObject x 175 ops/sec ±1.66% (74 runs sampled)
 ```
 
 ```
 fastArrayIntersectKeyedObject x 87.19 ops/sec ±1.46% (74 runs sampled)
-intersectorKeyedObject x 99.36 ops/sec ±2.67% (74 runs sampled)
+intersectorKeyedObject x 158 ops/sec ±2.67% (74 runs sampled)
 ```
 
 ## Real World Simulation
 
-In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The `intersector` function is consistently 50% to 100% the faster than other functions. To run this test in the test/benchmark directory:
+In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The `intersector` function is generally 50% to 100% the faster than other functions, `although fast_array_intersect` occasionally has a burst of speed. To run this test in the test/benchmark directory:
 
 ```
 node index2.js
 ```
 
+The program will run in a loop until you abort it with `ctrl-c`. The results are printed to the console.
 
 # Installing
 
@@ -99,14 +98,11 @@ In browser:
 <script src="./dist/intersector.js"></script>
 ```
 
-## Primitive Intersection
+## Primitive and Object Intersection
 ```javascript
 var primitiveIntersect = intersector();
 console.log(primitiveIntersect([1,2,3],[3,2])); // [3,2]
-```
 
-## Object Intersection
-```javascript
 var objectIntersect = intersector(true);
 var o1 = {o:1},
 	o2 = {o:2},
@@ -132,6 +128,8 @@ console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 3. Return the maximum intersection Set as an array.
 
 # Updates (reverse chronological order)
+
+2023-01-24 v2.1.1 - Removed redundant code. Adjusted build to create module as main entry. Optimized keyedObject intersection. Converted tests and benchmarks to use module format.
 
 2023-01-23 v2.1.0 - Reworked internals for more speed.
 
