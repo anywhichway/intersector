@@ -1,6 +1,6 @@
 {
   "name": "intersector",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Superfast intersection supporting primitives and objects.  Up to 2x faster than other libraries. In the age of big data, you need it.",
   "type": "module",
   "source": "./src/index.js",

@@ -129,6 +129,8 @@ console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 
 # Updates (reverse chronological order)
 
+2023-01-24 v2.1.2 - Updated copyright years
+
 2023-01-24 v2.1.1 - Removed redundant code. Adjusted build to create module as main entry. Optimized keyedObject intersection. Converted tests and benchmarks to use module format.
 
 2023-01-23 v2.1.0 - Reworked internals for more speed.
