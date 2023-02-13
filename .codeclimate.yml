@@ -16,4 +16,5 @@ exclude_paths:
 - examples/
 - lib/
 - dist/
+- spec/
 - index.js

@@ -12,13 +12,13 @@ Just 528 bytes of ES5 module minified code with no dependencies. 322 bytes gzipp
 
 `fast-array-intersect` and `intersector` are within 2 bytes of the same size, with `intersector` being smaller.
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=anywhichway/intersector&amp;utm_campaign=Badge_Grade)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a172ba1b0778d1f458cc/maintainability)](https://codeclimate.com/github/anywhichway/intersector/maintainability)
 [![Generic badge](https://img.shields.io/badge/GitHub-Repsitory-green.svg)](https://www.github.com/anywhichway/intersector)
 
 
 ## Raw Power Test
 
-Below are node.js v12 benchmarks for v2.1.3 in a 4 core i5 2.86gz Windows 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result. (Note, this is a lighter weight test environment than for v1.x.x, so speeds look slower but they are actually faster.)
+Below are node.js v19.6.0 benchmarks for v2.2.1 on a 4 core i5 2.86gz Windows 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result. (Note, this is a lighter weight test environment than for v1.x.x, so speeds look slower but they are actually faster.)
 
 To run the test in the test/benchmark directory:
 
@@ -121,7 +121,29 @@ console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
    2. If the intermediate set is shorter than the maximum intersection Set, set the maximum intersection Set to the intermediate set
 3. Return the maximum intersection set as an array.
 
+# Unit Tests
+
+    √ primitive
+    √ object with primitives
+    √ object with primitives none
+    √ objects
+    √ objects none
+    √ keyed objects
+    √ keyed objects none
+
+8 passing (28ms)
+
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+----------|---------|----------|---------|---------|-------------------
+All files |   98.38 |     92.3 |     100 |   98.38 |                  
+index.js |   98.38 |     92.3 |     100 |   98.38 | 56               
+----------|---------|----------|---------|---------|-------------------
+
+
 # Updates (reverse chronological order)
+
+2023-02-13 v2.2.1 - Updated docs.
 
 2023-02-13 v2.2.0 - Optimized further for size and speed. Reduced size by 50%. Less than 10% speed improvement.
 
