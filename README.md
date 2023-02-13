@@ -2,13 +2,15 @@
 
 Superfast intersection supporting primitives and objects. Up to 2x to 3x faster than other libraries. In the age of big data, you need it.
 
-Just 1.2K of ES5 compatible minified code with no dependencies. 613 bytes gzipped.
+Just 528 bytes of ES5 module minified code with no dependencies. 322 bytes gzipped.
 
-1.4x faster than the next fastest (lovasoa) for primitve values.
+2.5 to 3x faster than the next fastest (fast-array-intersect) for primitive values.
 
-1.75x faster than the next fastest (fast-array-intersect) for objects.
+1.25 to 1.5x faster than the next fastest (fast-array-intersect) for objects.
 
-1.8x faster than the next fastest (fast-array-intersect) for keyed objects.
+2.5 to 3x faster than the next fastest (fast-array-intersect) for keyed objects.
+
+`fast-array-intersect` and `intersector` are within 2 bytes of the same size, with `intersector` being smaller.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4709e14023040cbb957b7c587be236b)](https://www.codacy.com/app/syblackwell/intersector?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=anywhichway/intersector&amp;utm_campaign=Badge_Grade)
 [![Generic badge](https://img.shields.io/badge/GitHub-Repsitory-green.svg)](https://www.github.com/anywhichway/intersector)
@@ -16,33 +18,32 @@ Just 1.2K of ES5 compatible minified code with no dependencies. 613 bytes gzippe
 
 ## Raw Power Test
 
-Below are node.js v12 benchmarks for v1.1.1 in a 4 core i7 2.86gz Debian 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result.
+Below are node.js v12 benchmarks for v2.1.3 in a 4 core i5 2.86gz Windows 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result. (Note, this is a lighter weight test environment than for v1.x.x, so speeds look slower but they are actually faster.)
 
 To run the test in the test/benchmark directory:
 
 ```
-node index.js
+npm run benchmark
 ```
 
 ```
-lodashPrimitive x 69.90 ops/sec ±1.64% (72 runs sampled)
-benviePrimitive x 66.35 ops/sec ±1.90% (69 runs sampled)
-lovasoaPrimitive x 137 ops/sec ±1.74% (77 runs sampled)
-fastArrayIntersectPrimitive x 102 ops/sec ±1.44% (75 runs sampled)
-intersectorPrimitive x 191 ops/sec ±1.31% (81 runs sampled)
-
+lodashPrimitive x 39.84 ops/sec ±2.29% (51 runs sampled)
+benviePrimitive x 27.65 ops/sec ±12.57% (38 runs sampled)
+lovasoaPrimitive x 31.79 ops/sec ±64.01% (31 runs sampled)
+fastArrayIntersect x 42.04 ops/sec ±19.51% (54 runs sampled)
+intersectorPrimitive x 148 ops/sec ±4.42% (67 runs sampled)
 ```
 
 ```
-lodashObject x 68.81 ops/sec ±1.53% (71 runs sampled)
-benvieObject x 63.21 ops/sec ±2.67% (66 runs sampled)
-fastArrayIntersectObject x 100 ops/sec ±1.37% (73 runs sampled)
-intersectorObject x 175 ops/sec ±1.66% (74 runs sampled)
+lodashObject x 30.15 ops/sec ±6.54% (53 runs sampled)
+benvieObject x 24.41 ops/sec ±14.11% (48 runs sampled)
+fastArrayIntersectObject x 43.35 ops/sec ±7.82% (45 runs sampled)
+intersectorObject x 61.22 ops/sec ±46.55% (34 runs sampled)
 ```
 
 ```
-fastArrayIntersectKeyedObject x 87.19 ops/sec ±1.46% (74 runs sampled)
-intersectorKeyedObject x 158 ops/sec ±2.67% (74 runs sampled)
+fastArrayIntersectKeyedObject x 15.58 ops/sec ±61.47% (21 runs sampled)
+intersectorKeyedObject x 47.02 ops/sec ±46.64% (39 runs sampled)
 ```
 
 ## Real World Simulation
@@ -61,10 +62,6 @@ The program will run in a loop until you abort it with `ctrl-c`. The results are
 npm install intersector
 ```
 
-or
-
-Download and use the browser files from the browser directory.
-
 If you plan to run `intersectors` unit tests, then install Parcel globaly:
 
 ```
@@ -74,10 +71,7 @@ npm install -g parcel-bundler
 # Using
 
 `intersector(objectsMixedOrKey)` is a function that returns another function configured to do array intersections. It takes one optional argument `objectsMixedOrKey`. If no 
-value is provided the intersection is optimized for uniform primitive data types across all arrays and will run much faster. If `typeof(objectsMixedOrKey)==="string"` it is assumed 
-to be a unique key on all objects in the arrays. This will run the second fastest. If `objectsMixedOrKey` is otherwise not equal to zero, then a Set will be used internally and the algorithm 
-will be slower, although still faster than others. This is useful in the rare cases where there might be mixed primitve types in the target arrays, e.g. `[1,2,"2"]` and `["1",2,3]` which should
-result in `[1,"1",2,"2",3]`.
+value is provided the intersection handles all types across all arrays and will run much faster. If `typeof(objectsMixedOrKey)==="string"` it is assumed to be a unique key name and all arrays should contain objects with this key name.
 
 The returned intersection function can take any number of arguments.
 
@@ -121,13 +115,15 @@ console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 
 # Algorithm
 
-1. Determine the shortest array passed as an argument. It's members, as a Set, constitute the maximum intersection.
-2. Iterate over each other array and collect the items that are also in the maximum intersection into an intermediate Set.
-   1. If the intermediate Set is empty, return an empty array because there is no intersection of all arrays.
-   2. If the intermediate Set is shorter than the maximum intersection Set, set the maximum intersection Set to the intermediate Set
-3. Return the maximum intersection Set as an array.
+1. Determine the shortest array passed as an argument. It's members, as a set, constitute the maximum intersection.
+2. Iterate over each other array and collect the items that are also in the maximum intersection into an intermediate set.
+   1. If the intermediate set is empty, return an empty array because there is no intersection of all arrays.
+   2. If the intermediate set is shorter than the maximum intersection Set, set the maximum intersection Set to the intermediate set
+3. Return the maximum intersection set as an array.
 
 # Updates (reverse chronological order)
+
+2023-02-13 v2.2.0 - Optimized further for size and speed. Reduced size by 50%. Less than 10% speed improvement.
 
 2023-01-24 v2.1.2 - Updated copyright years
 

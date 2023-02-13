@@ -1,7 +1,7 @@
 {
   "name": "intersector",
-  "version": "2.1.2",
-  "description": "Superfast intersection supporting primitives and objects.  Up to 2x faster than other libraries. In the age of big data, you need it.",
+  "version": "2.2.0",
+  "description": "Superfast and small intersection supporting primitives and objects.  Up to 2x faster than other libraries. In the age of big data, you need it.",
   "type": "module",
   "source": "./src/index.js",
   "main": "./index.js",
@@ -10,7 +10,8 @@
     "test": "parcel build && istanbul cover node_modules/mocha/bin/_mocha --report lcov -- -R spec",
     "prepublish": "parcel build",
     "build": "parcel build",
-    "build-dev": "parcel watch"
+    "build-dev": "parcel watch",
+    "benchmark": "node ./test/benchmark/index.js"
   },
   "repository": {
     "type": "git",
