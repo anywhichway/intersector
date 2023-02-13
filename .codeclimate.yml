@@ -11,8 +11,9 @@ ratings:
   paths:
   - "**.js"
 exclude_paths:
-- test/**/*
-- browser/**/*
-- examples/**/*
-- lib/**/*
+- test/
+- browser/
+- examples/
+- lib/
+- dist/
 - index.js
