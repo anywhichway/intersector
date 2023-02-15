@@ -44,7 +44,7 @@ function intersector(objectsMixedOrKey) {
 			key ? memory.set(item[key],item) : memory.add(item);
 		}
 
-		for (let i=1; i<=maxlen; i++) {
+		for (let i=0; i<=maxlen; i++) {
 			if(i===shortestIndex) continue;
 			const found = key ? new Map() : new Set();
 			for(const item of args[i]) {

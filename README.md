@@ -48,7 +48,7 @@ intersectorKeyedObject x 47.02 ops/sec ±46.64% (39 runs sampled)
 
 ## Real World Simulation
 
-In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The `intersector` function is generally 50% to 100% the faster than other functions, `although fast_array_intersect` occasionally has a burst of speed. To run this test in the test/benchmark directory:
+In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The `intersector` function is generally 50% to 100% the faster than other functions, although `fast_array_intersect` occasionally has a burst of speed. To run this test in the test/benchmark directory:
 
 ```
 node index2.js
@@ -143,7 +143,9 @@ index.js |   98.38 |     92.3 |     100 |   98.38 | 56
 
 # Updates (reverse chronological order)
 
-2023-02-13 v2.2.1 - Updated docs.
+2023-02-15 v2.3.0 - Fixed index issue that could result in occasional extra items in intersection.
+
+2023-02-15 v2.2.1 - Updated docs.
 
 2023-02-13 v2.2.0 - Optimized further for size and speed. Reduced size by 50%. Less than 10% speed improvement.
 

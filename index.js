@@ -33,7 +33,7 @@ function $cf838c15c8b009ba$export$2f3eb4d6eb4663c9(objectsMixedOrKey) {
         const shortestIndex = $cf838c15c8b009ba$var$shortest(args), maxlen = args.length - 1;
         let memory = key ? new Map() : new Set();
         for (const item of args[shortestIndex])key ? memory.set(item[key], item) : memory.add(item);
-        for(let i = 1; i <= maxlen; i++){
+        for(let i = 0; i <= maxlen; i++){
             if (i === shortestIndex) continue;
             const found = key ? new Map() : new Set();
             for (const item of args[i])if (key ? memory.has(item[key]) : memory.has(item)) key ? found.set(item[key], item) : found.add(item);
