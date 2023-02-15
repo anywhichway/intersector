@@ -4,11 +4,7 @@ Superfast intersection supporting primitives and objects. Up to 2x to 3x faster 
 
 Just 528 bytes of ES5 module minified code with no dependencies. 322 bytes gzipped.
 
-2.5 to 3x faster than the next fastest (fast-array-intersect) for primitive values.
-
-1.25 to 1.5x faster than the next fastest (fast-array-intersect) for objects.
-
-2.5 to 3x faster than the next fastest (fast-array-intersect) for keyed objects.
+1.15 to 1.5x faster than the next fastest.
 
 `fast-array-intersect` and `intersector` are within 2 bytes of the same size, with `intersector` being smaller.
 
@@ -26,25 +22,21 @@ To run the test in the test/benchmark directory:
 npm run benchmark
 ```
 
-```
-lodashPrimitive x 39.84 ops/sec ±2.29% (51 runs sampled)
-benviePrimitive x 27.65 ops/sec ±12.57% (38 runs sampled)
-lovasoaPrimitive x 31.79 ops/sec ±64.01% (31 runs sampled)
-fastArrayIntersect x 42.04 ops/sec ±19.51% (54 runs sampled)
-intersectorPrimitive x 148 ops/sec ±4.42% (67 runs sampled)
-```
+<samp>
+lodashPrimitive x 38.44 ops/sec ±4.15% (51 runs sampled)
+benviePrimitive x 32.72 ops/sec ±3.82% (46 runs sampled)
+lovasoaPrimitive x 50.25 ops/sec ±23.46% (46 runs sampled)
+fastArrayIntersect x 45.56 ops/sec ±16.41% (49 runs sampled)
+intersectorPrimitive x 52.40 ops/sec ±12.16% (57 runs sampled)
 
-```
-lodashObject x 30.15 ops/sec ±6.54% (53 runs sampled)
-benvieObject x 24.41 ops/sec ±14.11% (48 runs sampled)
-fastArrayIntersectObject x 43.35 ops/sec ±7.82% (45 runs sampled)
-intersectorObject x 61.22 ops/sec ±46.55% (34 runs sampled)
-```
+lodashObject x 18.39 ops/sec ±23.26% (34 runs sampled)
+benvieObject x 22.06 ops/sec ±11.77% (40 runs sampled)
+fastArrayIntersectObject x 40.04 ops/sec ±10.82% (50 runs sampled)
+intersectorObject x 48.66 ops/sec ±6.99% (51 runs sampled)
 
-```
-fastArrayIntersectKeyedObject x 15.58 ops/sec ±61.47% (21 runs sampled)
-intersectorKeyedObject x 47.02 ops/sec ±46.64% (39 runs sampled)
-```
+fastArrayIntersectKeyedObject x 29.07 ops/sec ±8.28% (39 runs sampled)
+intersectorKeyedObject x 40.00 ops/sec ±7.03% (53 runs sampled)
+</samp>
 
 ## Real World Simulation
 
@@ -142,6 +134,8 @@ index.js |   98.38 |     92.3 |     100 |   98.38 | 56
 
 
 # Updates (reverse chronological order)
+
+2023-02-15 v2.3.1 - Updated docs.
 
 2023-02-15 v2.3.0 - Fixed index issue that could result in occasional extra items in intersection.
 
