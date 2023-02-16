@@ -2,19 +2,20 @@
 
 Superfast intersection supporting primitives and objects. Up to 2x to 3x faster than other libraries. In the age of big data, you need it.
 
-Just 528 bytes of ES5 module minified code with no dependencies. 322 bytes gzipped.
+For a static test `intersector` is 5-10% slower than fasted implementation for primitive values. 10-20% faster that the next fastest for objects or mixed values.
 
-1.15 to 1.5x faster than the next fastest.
+However, in a [real world simulation](#real-world-simulation) using multiple random sized results the sole time `lovasoa` won was for a very large intersection. The sole time that `fast-array-intersect` won was for a small intersection. Typically, `intersector` is fastest by 10-20%.
 
-`fast-array-intersect` and `intersector` are within 2 bytes of the same size, with `intersector` being smaller.
+Just 431 bytes of ES5 module minified code with no dependencies. 276 bytes gzipped, which is 10% smaller than `fast-array-intersect`.
+
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a172ba1b0778d1f458cc/maintainability)](https://codeclimate.com/github/anywhichway/intersector/maintainability)
 [![Generic badge](https://img.shields.io/badge/GitHub-Repsitory-green.svg)](https://www.github.com/anywhichway/intersector)
 
 
-## Raw Power Test
+## Static Test
 
-Below are node.js v19.6.0 benchmarks for v2.2.1 on a 4 core i5 2.86gz Windows 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result. (Note, this is a lighter weight test environment than for v1.x.x, so speeds look slower but they are actually faster.)
+Below are node.js v19.6.0 benchmarks for v2.4.0 on a 4 core i5 2.86gz Windows 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result. (Note, this is a lighter weight test environment than for v1.x.x, so speeds look slower but they are actually faster.)
 
 To run the test in the test/benchmark directory:
 
@@ -23,30 +24,77 @@ npm run benchmark
 ```
 
 <samp>
-lodashPrimitive x 38.44 ops/sec ±4.15% (51 runs sampled)
-benviePrimitive x 32.72 ops/sec ±3.82% (46 runs sampled)
-lovasoaPrimitive x 50.25 ops/sec ±23.46% (46 runs sampled)
-fastArrayIntersect x 45.56 ops/sec ±16.41% (49 runs sampled)
-intersectorPrimitive x 52.40 ops/sec ±12.16% (57 runs sampled)
+lodashPrimitive x 37.07 ops/sec ±5.94% (51 runs sampled)
+benviePrimitive x 26.79 ops/sec ±13.24% (34 runs sampled)
+lovasoaPrimitive x 70.01 ops/sec ±5.46% (58 runs sampled)
+fastArrayIntersect x 59.39 ops/sec ±2.30% (61 runs sampled)
+intersectorPrimitive x 65.12 ops/sec ±2.75% (65 runs sampled)
 
-lodashObject x 18.39 ops/sec ±23.26% (34 runs sampled)
-benvieObject x 22.06 ops/sec ±11.77% (40 runs sampled)
-fastArrayIntersectObject x 40.04 ops/sec ±10.82% (50 runs sampled)
-intersectorObject x 48.66 ops/sec ±6.99% (51 runs sampled)
+lodashObject x 34.28 ops/sec ±2.24% (58 runs sampled)
+benvieObject x 32.27 ops/sec ±3.62% (55 runs sampled)
+fastArrayIntersectObject x 55.56 ops/sec ±2.16% (56 runs sampled)
+intersectorObject x 61.07 ops/sec ±2.43% (61 runs sampled)
 
-fastArrayIntersectKeyedObject x 29.07 ops/sec ±8.28% (39 runs sampled)
-intersectorKeyedObject x 40.00 ops/sec ±7.03% (53 runs sampled)
+fastArrayIntersectKeyedObject x 44.81 ops/sec ±2.24% (58 runs sampled)
+intersectorKeyedObject x 61.49 ops/sec ±1.85% (61 runs sampled)
 </samp>
 
 ## Real World Simulation
 
-In a real world simulation 4 arrays of random length up to 100,000 primitive elements are intersected. The `intersector` function is generally 50% to 100% the faster than other functions, although `fast_array_intersect` occasionally has a burst of speed. To run this test in the test/benchmark directory:
+To run this test in the test/benchmark directory:
 
 ```
-node index2.js
+npm run simulation
 ```
 
-The program will run in a loop until you abort it with `ctrl-c`. The results are printed to the console.
+The program will run in a loop until you abort it with `ctrl-c`. A GC is forced between each test. The results are printed to the console.
+
+Below is a sample run. 
+
+<samp>
+lodashPrimitive x 20.13 ops/sec ±16.37% (35 runs sampled) 18068
+benviePrimitive x 40.47 ops/sec ±5.93% (53 runs sampled) 18068
+lovasoaPrimitive x 62.58 ops/sec ±6.20% (52 runs sampled) 18068
+fastArrayIntersect x 84.70 ops/sec ±6.40% (70 runs sampled) 18068
+intersectorPrimitive x 84.86 ops/sec ±6.20% (62 runs sampled) 18068
+Fastest is intersectorPrimitive,fastArrayIntersect
+lodashPrimitive x 36.72 ops/sec ±5.85% (47 runs sampled) 4502
+benviePrimitive x 32.89 ops/sec ±5.58% (57 runs sampled) 4502
+lovasoaPrimitive x 55.08 ops/sec ±13.56% (56 runs sampled) 4502
+fastArrayIntersect x 135 ops/sec ±1.97% (73 runs sampled) 4502
+intersectorPrimitive x 118 ops/sec ±5.16% (64 runs sampled) 4502
+Fastest is fastArrayIntersect
+lodashPrimitive x 36.89 ops/sec ±7.26% (49 runs sampled) 1490
+benviePrimitive x 25.01 ops/sec ±9.13% (43 runs sampled) 1490
+lovasoaPrimitive x 85.45 ops/sec ±1.92% (71 runs sampled) 1490
+fastArrayIntersect x 121 ops/sec ±7.51% (69 runs sampled) 1490
+intersectorPrimitive x 138 ops/sec ±2.19% (75 runs sampled) 1490
+Fastest is intersectorPrimitive
+lodashPrimitive x 38.51 ops/sec ±1.29% (50 runs sampled) 6508
+benviePrimitive x 70.45 ops/sec ±1.58% (69 runs sampled) 6508
+lovasoaPrimitive x 85.99 ops/sec ±0.97% (71 runs sampled) 6508
+fastArrayIntersect x 196 ops/sec ±1.40% (79 runs sampled) 6508
+intersectorPrimitive x 204 ops/sec ±0.78% (82 runs sampled) 6508
+Fastest is intersectorPrimitive
+lodashPrimitive x 29.08 ops/sec ±1.48% (51 runs sampled) 13179
+benviePrimitive x 35.36 ops/sec ±7.87% (47 runs sampled) 13179
+lovasoaPrimitive x 86.91 ops/sec ±1.18% (72 runs sampled) 13179
+fastArrayIntersect x 122 ops/sec ±0.90% (75 runs sampled) 13179
+intersectorPrimitive x 130 ops/sec ±1.96% (76 runs sampled) 13179
+Fastest is intersectorPrimitive
+lodashPrimitive x 23.81 ops/sec ±1.72% (42 runs sampled) 48639
+benviePrimitive x 32.28 ops/sec ±2.81% (55 runs sampled) 48639
+lovasoaPrimitive x 66.18 ops/sec ±0.82% (66 runs sampled) 48639
+fastArrayIntersect x 42.00 ops/sec ±1.41% (54 runs sampled) 48639
+intersectorPrimitive x 48.35 ops/sec ±2.93% (63 runs sampled) 48639
+Fastest is lovasoaPrimitive
+lodashPrimitive x 29.44 ops/sec ±1.67% (51 runs sampled) 16139
+benviePrimitive x 45.00 ops/sec ±2.92% (57 runs sampled) 16139
+lovasoaPrimitive x 81.21 ops/sec ±14.26% (69 runs sampled) 16139
+fastArrayIntersect x 83.69 ops/sec ±5.23% (55 runs sampled) 16139
+intersectorPrimitive x 117 ops/sec ±2.99% (72 runs sampled) 16139
+Fastest is intersectorPrimitive
+</samp>
 
 # Installing
 
@@ -105,13 +153,6 @@ var o1 = {uniqueId:1},
 console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 ```
 
-# Algorithm
-
-1. Determine the shortest array passed as an argument. It's members, as a set, constitute the maximum intersection.
-2. Iterate over each other array and collect the items that are also in the maximum intersection into an intermediate set.
-   1. If the intermediate set is empty, return an empty array because there is no intersection of all arrays.
-   2. If the intermediate set is shorter than the maximum intersection Set, set the maximum intersection Set to the intermediate set
-3. Return the maximum intersection set as an array.
 
 # Unit Tests
 
@@ -128,12 +169,17 @@ console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 ----------|---------|----------|---------|---------|-------------------
 File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 ----------|---------|----------|---------|---------|-------------------
-All files |   98.38 |     92.3 |     100 |   98.38 |                  
-index.js |   98.38 |     92.3 |     100 |   98.38 | 56               
+All files |     100 |    86.66 |     100 |     100 |                  
+index.js |     100 |    86.66 |     100 |     100 | 26,38            
 ----------|---------|----------|---------|---------|-------------------
 
+# Credits
+
+Portions of code are taken from https://github.com/lovasoa/fast_array_intersect and modified to support objects through the use of optimized modern Javascript constructs.
 
 # Updates (reverse chronological order)
+
+2023-02-16 v2.4.0 - Reworked internals to be faster, partially based on lovasoa algorithm.
 
 2023-02-15 v2.3.1 - Updated docs.
 

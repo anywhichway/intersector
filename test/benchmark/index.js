@@ -1,3 +1,9 @@
+import vm from "node:vm"
+import v8 from "v8";
+
+v8.setFlagsFromString('--expose_gc');
+const gc = vm.runInNewContext('gc');
+
 import assert from "assert";
 import _ from "lodash";
 import intersector from "../../index.js";
@@ -91,6 +97,7 @@ suite.add('lodashPrimitive', function() {
 })// add listeners
 .on('cycle', function(event) {
 	console.log(String(event.target));
+	gc();
 })
 .on('complete', function() {
 	console.log('Fastest is ' + this.filter('fastest').map('name'));

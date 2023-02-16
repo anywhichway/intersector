@@ -1,3 +1,10 @@
+import vm from "node:vm"
+import v8 from "v8";
+
+v8.setFlagsFromString('--expose_gc');
+const gc = vm.runInNewContext('gc');
+
+
 import assert from "assert";
 import _ from "lodash";
 import intersector from "../../index.js";
@@ -76,6 +83,11 @@ for(var i=0;i<10;i++) {
 	}).add('intersectorPrimitive', function() {
 		assert(primitiveIntersect(args1,args2,args3,args4).length===expected);
 	}).on('cycle', function(event) {
+		console.log(String(event.target),expected);
+		gc();
+	})
+	.on('complete', function() {
+		console.log('Fastest is ' + this.filter('fastest').map('name'));
 		l1 = args.length*Math.random(),
 		l2 = args.length*Math.random(),
 		l3 = args.length*Math.random(),
@@ -85,10 +97,7 @@ for(var i=0;i<10;i++) {
 		args3 = args.slice(l3),
 		args4 = args.slice(l4),
 		expected = lovasoa(args1,args2,args3,args4).length;
-		console.log(String(event.target),expected);
-	})
-	.on('complete', function() {
-		console.log('Fastest is ' + this.filter('fastest').map('name'));
+		gc();
 	})
 	// run async
 	.run();

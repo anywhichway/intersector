@@ -1,5 +1,5 @@
 /* MIT License
-Copyright (c) 2016-2023 Simon Y. Blackwell
+Copyright (c) 2016-2023 Simon Y. Blackwell & 2019 Ophir LOJKINE
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -18,33 +18,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
- */ const $cf838c15c8b009ba$var$shortest = (args)=>{
-    const len = args.length;
-    let i = 0, j = 0, min = args[0].length;
-    for(; i < len; i++)if (args[i].length < min) {
-        min = args[i].length;
-        j = i;
-    }
-    return j;
-};
-function $cf838c15c8b009ba$export$2f3eb4d6eb4663c9(objectsMixedOrKey) {
-    const key = typeof objectsMixedOrKey === "string" ? objectsMixedOrKey : false;
-    return (...args)=>{
-        const shortestIndex = $cf838c15c8b009ba$var$shortest(args), maxlen = args.length - 1;
-        let memory = key ? new Map() : new Set();
-        for (const item of args[shortestIndex])key ? memory.set(item[key], item) : memory.add(item);
-        for(let i = 0; i <= maxlen; i++){
-            if (i === shortestIndex) continue;
-            const found = key ? new Map() : new Set();
-            for (const item of args[i])if (key ? memory.has(item[key]) : memory.has(item)) key ? found.set(item[key], item) : found.add(item);
-            if (found.size === 0) return [];
-            if (found.size < memory.size) memory = found;
+ */ /* Portions of algorithm taken from https://github.com/lovasoa/fast_array_intersect under MIT license */ function $cf838c15c8b009ba$export$2f3eb4d6eb4663c9(key) {
+    const getKey = typeof key === "string" ? (value)=>value && typeof value === "object" && value[key] !== undefined ? value[key] : value : null;
+    return function() {
+        const result = [], memory = new Map(), nOthers = arguments.length - 1;
+        [].sort.call(arguments, (a, b)=>a.length - b.length);
+        for(let i = 0; i <= nOthers; i++){
+            let j = arguments[i].length;
+            while(j--){
+                const elem = arguments[i][j], key = getKey ? getKey(elem) : elem;
+                if (memory.get(key) === i - 1) i === nOthers ? (result[result.length] = elem, memory.set(key, 0)) : memory.set(key, i);
+                else if (i === 0) memory.set(key, 0);
+            }
         }
-        return key ? [
-            ...memory.values()
-        ] : [
-            ...memory
-        ];
+        return result;
     };
 }
 
