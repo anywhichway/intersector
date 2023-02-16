@@ -2,9 +2,9 @@
 
 Superfast intersection supporting primitives and objects. Up to 2x to 3x faster than other libraries. In the age of big data, you need it.
 
-For a static test `intersector` is 5-10% slower than fasted implementation for primitive values. 10-20% faster that the next fastest for objects or mixed values.
+For a static test `intersector` is 5-10% slower than fastest implementation for primitive values. 10-20% faster that the next fastest for objects or mixed values.
 
-However, in a [real world simulation](#real-world-simulation) using multiple random sized results the sole time `lovasoa` won was for a very large intersection. The sole time that `fast-array-intersect` won was for a small intersection. Typically, `intersector` is fastest by 10-20%.
+However, in a [real world simulation](#real-world-simulation) using multiple random sized results, the sole time `lovasoa` won was for a very large intersection. The sole time that `fast-array-intersect` won was for a small intersection. Typically, `intersector` is fastest by 10-20%.
 
 Just 431 bytes of ES5 module minified code with no dependencies. 276 bytes gzipped, which is 10% smaller than `fast-array-intersect`.
 
