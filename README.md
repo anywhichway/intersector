@@ -23,7 +23,7 @@ To run the test in the test/benchmark directory:
 npm run benchmark
 ```
 
-<samp>
+```
 lodashPrimitive x 37.07 ops/sec ±5.94% (51 runs sampled)
 benviePrimitive x 26.79 ops/sec ±13.24% (34 runs sampled)
 lovasoaPrimitive x 70.01 ops/sec ±5.46% (58 runs sampled)
@@ -37,7 +37,7 @@ intersectorObject x 61.07 ops/sec ±2.43% (61 runs sampled)
 
 fastArrayIntersectKeyedObject x 44.81 ops/sec ±2.24% (58 runs sampled)
 intersectorKeyedObject x 61.49 ops/sec ±1.85% (61 runs sampled)
-</samp>
+```
 
 ## Real World Simulation
 
@@ -51,7 +51,7 @@ The program will run in a loop until you abort it with `ctrl-c`. A GC is forced 
 
 Below is a sample run. 
 
-<samp>
+```
 lodashPrimitive x 20.13 ops/sec ±16.37% (35 runs sampled) 18068
 benviePrimitive x 40.47 ops/sec ±5.93% (53 runs sampled) 18068
 lovasoaPrimitive x 62.58 ops/sec ±6.20% (52 runs sampled) 18068
@@ -94,7 +94,7 @@ lovasoaPrimitive x 81.21 ops/sec ±14.26% (69 runs sampled) 16139
 fastArrayIntersect x 83.69 ops/sec ±5.23% (55 runs sampled) 16139
 intersectorPrimitive x 117 ops/sec ±2.99% (72 runs sampled) 16139
 Fastest is intersectorPrimitive
-</samp>
+```
 
 # Installing
 
@@ -178,6 +178,8 @@ index.js |     100 |    86.66 |     100 |     100 | 26,38
 Portions of code are taken from https://github.com/lovasoa/fast_array_intersect and modified to support objects through the use of optimized modern Javascript constructs.
 
 # Updates (reverse chronological order)
+
+2023-02-16 v2.4.1 - Document formatting.
 
 2023-02-16 v2.4.0 - Reworked internals to be faster, partially based on lovasoa algorithm.
 
