@@ -1,11 +1,10 @@
 {
   "name": "intersector",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "description": "Superfast and small intersection supporting primitives and objects.  Up to 3x faster than other libraries. In the age of big data, you need it.",
   "type": "module",
   "source": "./src/index.js",
   "main": "./index.js",
-  "browser": "./dist/intersector.js",
   "scripts": {
     "test": "parcel build && c8 node_modules/mocha/bin/_mocha",
     "prepublish": "parcel build",

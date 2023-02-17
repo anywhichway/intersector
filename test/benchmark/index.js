@@ -81,6 +81,16 @@ suite.add('lodashPrimitive', function() {
 }).add('intersectorPrimitive', function() {
 	assert(primitiveIntersect(args1,args2).length===expected);
 })
+.add('intersector iterable time to first', function() {
+	const result = primitiveIntersect.iterable(args2,args2);
+	for(const item of result) {
+		break;
+	}
+})
+.add('intersector iterable', function() {
+	const result = [...primitiveIntersect.iterable(args2,args2)];
+	assert(result.length===expected);
+})
 .add('lodashObject', function() {
 	assert(_.intersection(oargs1,oargs2).length===expected);
 })
@@ -96,7 +106,7 @@ suite.add('lodashPrimitive', function() {
 	assert(keyedObjectIntersect(oargs1,oargs2).length===expected);
 })// add listeners
 .on('cycle', function(event) {
-	console.log(String(event.target));
+	console.log(String(event.target),expected);
 	gc();
 })
 .on('complete', function() {

@@ -20,19 +20,60 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */ /* Portions of algorithm taken from https://github.com/lovasoa/fast_array_intersect under MIT license */ function $cf838c15c8b009ba$export$2f3eb4d6eb4663c9(key) {
     const getKey = typeof key === "string" ? (value)=>value && typeof value === "object" && value[key] !== undefined ? value[key] : value : null;
-    return function() {
-        const result = [], memory = new Map(), nOthers = arguments.length - 1;
-        [].sort.call(arguments, (a, b)=>a.length - b.length);
-        for(let i = 0; i <= nOthers; i++){
-            let j = arguments[i].length;
-            while(j--){
-                const elem = arguments[i][j], key = getKey ? getKey(elem) : elem;
-                if (memory.get(key) === i - 1) i === nOthers ? (result[result.length] = elem, memory.set(key, 0)) : memory.set(key, i);
-                else if (i === 0) memory.set(key, 0);
+    const create = (iterating)=>{
+        let i = 0, j, len, nOthers, args, result, memory;
+        return function() {
+            if (!args) {
+                args = [].sort.call(arguments, (a, b)=>a.length - b.length);
+                nOthers = args.length - 1;
+                result = [];
+                memory = new Map();
+                i = 0;
+                j = 0;
             }
-        }
-        return result;
+            for(; i <= nOthers; i++){
+                //j = j===-1 ? arguments[i].length : j;
+                const len = args[i].length;
+                while(j < len){
+                    const elem = args[i][j], key = getKey ? getKey(elem) : elem;
+                    if (memory.get(key) === i - 1) {
+                        if (i === nOthers) {
+                            result[result.length] = elem;
+                            memory.set(key, 0);
+                            if (iterating) {
+                                j++;
+                                return {
+                                    value: elem
+                                };
+                            }
+                        } else memory.set(key, i);
+                    } else if (i === 0) memory.set(key, 0);
+                    j++;
+                }
+                j = 0;
+            }
+            args = null;
+            return iterating ? {
+                done: true
+            } : result;
+        };
     };
+    const intersect = create();
+    intersect.iterable = function(...args) {
+        const intersect = create(true);
+        let started;
+        return {
+            next () {
+                if (started) return intersect();
+                started = true;
+                return intersect(...args);
+            },
+            [Symbol.iterator] () {
+                return this;
+            }
+        };
+    };
+    return intersect;
 }
 
 

@@ -1,100 +1,28 @@
 # intersector
 
-Superfast intersection supporting primitives and objects. Up to 2x to 3x faster than other libraries. In the age of big data, you need it.
+Superfast intersection supporting primitives and objects. In the age of big data, you need it.
 
-For a static test `intersector` is 5-10% slower than fastest implementation for primitive values. 10-20% faster that the next fastest for objects or mixed values.
+Breakthrough iterable performance for array intersections. The time to first available element is 20-40% faster than other approaches.
 
-However, in a [real world simulation](#real-world-simulation) using multiple random sized results, the sole time `lovasoa` won was for a very large intersection. The sole time that `fast-array-intersect` won was for a small intersection. Typically, `intersector` is fastest by 10-20%.
+Remove bottlenecks from your data processing pipeline by using `intersector.iterable`.
 
-Just 431 bytes of ES5 module minified code with no dependencies. 276 bytes gzipped, which is 10% smaller than `fast-array-intersect`.
+For a [static test](#static-test), full intersection using `intersector` is typically 10% slower than the fastest implementation for primitive values (the original `lovasoa` algorithm) and 10-20% faster than the current `lovasoa` algorithm in `fast_array_intersect`. It is 5-10% faster that the next fastest, `fast_array_intersect` for objects or mixed values.
 
+And, in a [real world simulation](#real-world-simulation) using multiple random sized results, full intersection using `intersector` and `fast-array-intersect` are always fastest and  typically within each other's margin or error.
+
+However, by computing intersection elements on demand, `intersector.iterable` is always the fastest for static or dynamic tests by 20-40%.
+
+Just 630 bytes of ES5 module minified code with no dependencies. 399 bytes gzipped. 150 bytes larger than `fast_array_intersect`.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a172ba1b0778d1f458cc/maintainability)](https://codeclimate.com/github/anywhichway/intersector/maintainability)
 [![Generic badge](https://img.shields.io/badge/GitHub-Repsitory-green.svg)](https://www.github.com/anywhichway/intersector)
 
 
-## Static Test
+If you want similar performance for union, Cartesian product, or memoizing also see:
 
-Below are node.js v19.6.0 benchmarks for v2.4.0 on a 4 core i5 2.86gz Windows 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result. (Note, this is a lighter weight test environment than for v1.x.x, so speeds look slower but they are actually faster.)
-
-To run the test in the test/benchmark directory:
-
-```
-npm run benchmark
-```
-
-```
-lodashPrimitive x 37.07 ops/sec ±5.94% (51 runs sampled)
-benviePrimitive x 26.79 ops/sec ±13.24% (34 runs sampled)
-lovasoaPrimitive x 70.01 ops/sec ±5.46% (58 runs sampled)
-fastArrayIntersect x 59.39 ops/sec ±2.30% (61 runs sampled)
-intersectorPrimitive x 65.12 ops/sec ±2.75% (65 runs sampled)
-
-lodashObject x 34.28 ops/sec ±2.24% (58 runs sampled)
-benvieObject x 32.27 ops/sec ±3.62% (55 runs sampled)
-fastArrayIntersectObject x 55.56 ops/sec ±2.16% (56 runs sampled)
-intersectorObject x 61.07 ops/sec ±2.43% (61 runs sampled)
-
-fastArrayIntersectKeyedObject x 44.81 ops/sec ±2.24% (58 runs sampled)
-intersectorKeyedObject x 61.49 ops/sec ±1.85% (61 runs sampled)
-```
-
-## Real World Simulation
-
-To run this test in the test/benchmark directory:
-
-```
-npm run simulation
-```
-
-The program will run in a loop until you abort it with `ctrl-c`. A GC is forced between each test. The results are printed to the console.
-
-Below is a sample run. 
-
-```
-lodashPrimitive x 20.13 ops/sec ±16.37% (35 runs sampled) 18068
-benviePrimitive x 40.47 ops/sec ±5.93% (53 runs sampled) 18068
-lovasoaPrimitive x 62.58 ops/sec ±6.20% (52 runs sampled) 18068
-fastArrayIntersect x 84.70 ops/sec ±6.40% (70 runs sampled) 18068
-intersectorPrimitive x 84.86 ops/sec ±6.20% (62 runs sampled) 18068
-Fastest is intersectorPrimitive,fastArrayIntersect
-lodashPrimitive x 36.72 ops/sec ±5.85% (47 runs sampled) 4502
-benviePrimitive x 32.89 ops/sec ±5.58% (57 runs sampled) 4502
-lovasoaPrimitive x 55.08 ops/sec ±13.56% (56 runs sampled) 4502
-fastArrayIntersect x 135 ops/sec ±1.97% (73 runs sampled) 4502
-intersectorPrimitive x 118 ops/sec ±5.16% (64 runs sampled) 4502
-Fastest is fastArrayIntersect
-lodashPrimitive x 36.89 ops/sec ±7.26% (49 runs sampled) 1490
-benviePrimitive x 25.01 ops/sec ±9.13% (43 runs sampled) 1490
-lovasoaPrimitive x 85.45 ops/sec ±1.92% (71 runs sampled) 1490
-fastArrayIntersect x 121 ops/sec ±7.51% (69 runs sampled) 1490
-intersectorPrimitive x 138 ops/sec ±2.19% (75 runs sampled) 1490
-Fastest is intersectorPrimitive
-lodashPrimitive x 38.51 ops/sec ±1.29% (50 runs sampled) 6508
-benviePrimitive x 70.45 ops/sec ±1.58% (69 runs sampled) 6508
-lovasoaPrimitive x 85.99 ops/sec ±0.97% (71 runs sampled) 6508
-fastArrayIntersect x 196 ops/sec ±1.40% (79 runs sampled) 6508
-intersectorPrimitive x 204 ops/sec ±0.78% (82 runs sampled) 6508
-Fastest is intersectorPrimitive
-lodashPrimitive x 29.08 ops/sec ±1.48% (51 runs sampled) 13179
-benviePrimitive x 35.36 ops/sec ±7.87% (47 runs sampled) 13179
-lovasoaPrimitive x 86.91 ops/sec ±1.18% (72 runs sampled) 13179
-fastArrayIntersect x 122 ops/sec ±0.90% (75 runs sampled) 13179
-intersectorPrimitive x 130 ops/sec ±1.96% (76 runs sampled) 13179
-Fastest is intersectorPrimitive
-lodashPrimitive x 23.81 ops/sec ±1.72% (42 runs sampled) 48639
-benviePrimitive x 32.28 ops/sec ±2.81% (55 runs sampled) 48639
-lovasoaPrimitive x 66.18 ops/sec ±0.82% (66 runs sampled) 48639
-fastArrayIntersect x 42.00 ops/sec ±1.41% (54 runs sampled) 48639
-intersectorPrimitive x 48.35 ops/sec ±2.93% (63 runs sampled) 48639
-Fastest is lovasoaPrimitive
-lodashPrimitive x 29.44 ops/sec ±1.67% (51 runs sampled) 16139
-benviePrimitive x 45.00 ops/sec ±2.92% (57 runs sampled) 16139
-lovasoaPrimitive x 81.21 ops/sec ±14.26% (69 runs sampled) 16139
-fastArrayIntersect x 83.69 ops/sec ±5.23% (55 runs sampled) 16139
-intersectorPrimitive x 117 ops/sec ±2.99% (72 runs sampled) 16139
-Fastest is intersectorPrimitive
-```
+- https://github.com/anywhichway/unionizor
+- https://github.com/anywhichway/cxproduct
+- https://github.com/anywhichway/nano-memoize
 
 # Installing
 
@@ -110,7 +38,7 @@ npm install -g parcel-bundler
 
 # Using
 
-`intersector(objectsMixedOrKey)` is a function that returns another function configured to do array intersections. It takes one optional argument `objectsMixedOrKey`. If no 
+`intersector(objectsMixedOrKey)` is a function that returns another function configured to do array intersections. It takes one optional argument `objectsMixedOrKey`. If no
 value is provided the intersection handles all types across all arrays and will run much faster. If `typeof(objectsMixedOrKey)==="string"` it is assumed to be a unique key name and all arrays should contain objects with this key name.
 
 The returned intersection function can take any number of arguments.
@@ -126,22 +54,22 @@ or
 import intersector from "intersector"; 
 ```
 
-In browser:
-
-```
-<script src="./dist/intersector.js"></script>
-```
-
 ## Primitive and Object Intersection
 ```javascript
 var primitiveIntersect = intersector();
-console.log(primitiveIntersect([1,2,3],[3,2])); // [3,2]
+console.log(primitiveIntersect([1,2,3],[3,2])); /// immediately resolves full intersection  [3,2]
+for(const item of primitiveIntersect.iterable([1,2,3],[3,2])) {
+    console.log(item); // logs 2 and then 3, 20%+ faster for firts element access
+}
 
 var objectIntersect = intersector(true);
 var o1 = {o:1},
 	o2 = {o:2},
 	o3 = {o:3};
-console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
+console.log(objectIntersect([o1,o2,o3],[o3,o2])); // immediately resolves full intersection [o2,o3];
+for(const item of objectIntersect.iterable([o1,o2,o3],[o3,o2])) {
+    console.log(item); // logs {o:2} and then {o:3}, 20%+ faster for firts element access
+}
 ```
 
 ## Keyed Object Intersection
@@ -150,7 +78,88 @@ var objectIntersect = intersector("uniqueId");
 var o1 = {uniqueId:1},
 	o2 = {uniqueId:2},
 	o3 = {uniqueId:3};
-console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
+console.log(objectIntersect([o1,o2,o3],[o3,o2])); // // immediately resolves full intersection [o2,o3];
+for(const item of objectIntersect.iterable([o1,o2,o3],[o3,o2])) {
+    console.log(item); // logs {o:2} and then {o:3}, 20%+ faster for firts element access
+}
+```
+
+
+## Static Test
+
+Below are node.js v19.6.0 benchmarks for v2.5.0 on a 4 core i5 2.86gz Windows 64bit environment intersecting a 100,000 element array with a 50,000 element array having a 50,000 element result. (Note, this is a lighter weight test environment than for v1.x.x, so speeds look slower, but they are actually faster.)
+
+To run the test in the test/benchmark directory:
+
+```
+npm run benchmark
+```
+
+```
+lodashPrimitive x 38.39 ops/sec ±4.92% (49 runs sampled) 50000
+benviePrimitive x 21.04 ops/sec ±31.17% (40 runs sampled) 50000
+lovasoaPrimitive x 51.89 ops/sec ±23.77% (45 runs sampled) 50000
+fastArrayIntersect x 51.94 ops/sec ±9.45% (54 runs sampled) 50000
+intersectorPrimitive x 67.76 ops/sec ±2.02% (68 runs sampled) 50000
+intersector iterable time to first x 130 ops/sec ±2.15% (72 runs sampled) 50000
+intersector iterable x 50.15 ops/sec ±2.67% (64 runs sampled) 50000
+
+lodashObject x 36.48 ops/sec ±2.55% (51 runs sampled) 50000
+benvieObject x 26.69 ops/sec ±16.85% (47 runs sampled) 50000
+fastArrayIntersectObject x 43.25 ops/sec ±11.46% (46 runs sampled) 50000
+intersectorObject x 54.46 ops/sec ±5.77% (57 runs sampled) 50000
+
+fastArrayIntersectKeyedObject x 44.81 ops/sec ±2.24% (58 runs sampled)
+intersectorKeyedObject x 61.49 ops/sec ±1.85% (61 runs sampled)
+```
+
+## Real World Simulation
+
+This test intersects 5 arrays of random length between 0 and 100,000 containing random numbers between 0 and 100,000.
+
+To run this test in the test/benchmark directory:
+
+```
+npm run simulation
+```
+
+The program will run in a loop until you abort it with `ctrl-c`. A GC is forced between each test. The results are printed to the console.
+
+Below is a sample run. 
+
+```
+lodashPrimitive x 1.54 ops/sec ±3.73% (8 runs sampled) 15916
+benviePrimitive x 32.69 ops/sec ±2.25% (56 runs sampled) 15916
+lovasoaPrimitive x 29.90 ops/sec ±1.69% (52 runs sampled) 15916
+fastArrayIntersect x 62.15 ops/sec ±0.76% (63 runs sampled) 15916
+intersectorPrimitive x 61.83 ops/sec ±1.12% (63 runs sampled) 15916
+intersector iterable time to first x 86.49 ops/sec ±0.92% (71 runs sampled) 15916
+intersector iterable x 52.13 ops/sec ±3.36% (63 runs sampled) 15916
+Fastest is intersector iterable time to first
+lodashPrimitive x 0.92 ops/sec ±19.65% (7 runs sampled) 1488
+benviePrimitive x 23.10 ops/sec ±26.45% (42 runs sampled) 1488
+lovasoaPrimitive x 49.60 ops/sec ±5.61% (51 runs sampled) 1488
+fastArrayIntersect x 90.32 ops/sec ±2.40% (72 runs sampled) 1488
+intersectorPrimitive x 90.47 ops/sec ±0.73% (74 runs sampled) 1488
+intersector iterable time to first x 132 ops/sec ±0.59% (80 runs sampled) 1488
+intersector iterable x 87.21 ops/sec ±0.79% (72 runs sampled) 1488
+Fastest is intersector iterable time to first
+lodashPrimitive x 1.65 ops/sec ±18.26% (9 runs sampled) 13948
+benviePrimitive x 33.99 ops/sec ±2.86% (58 runs sampled) 13948
+lovasoaPrimitive x 36.96 ops/sec ±1.69% (62 runs sampled) 13948
+fastArrayIntersect x 82.80 ops/sec ±0.94% (69 runs sampled) 13948
+intersectorPrimitive x 81.37 ops/sec ±4.42% (68 runs sampled) 13948
+intersector iterable time to first x 114 ops/sec ±3.10% (71 runs sampled) 13948
+intersector iterable x 71.56 ops/sec ±1.39% (71 runs sampled) 13948
+Fastest is intersector iterable time to first
+lodashPrimitive x 0.89 ops/sec ±1.59% (7 runs sampled) 25175
+benviePrimitive x 27.81 ops/sec ±1.83% (48 runs sampled) 25175
+lovasoaPrimitive x 22.27 ops/sec ±1.94% (40 runs sampled) 25175
+fastArrayIntersect x 50.26 ops/sec ±1.26% (64 runs sampled) 25175
+intersectorPrimitive x 52.86 ops/sec ±1.18% (66 runs sampled) 25175
+intersector iterable time to first x 76.63 ops/sec ±1.26% (64 runs sampled) 25175
+intersector iterable x 46.70 ops/sec ±1.05% (59 runs sampled) 25175
+Fastest is intersector iterable time to first
 ```
 
 
@@ -169,15 +178,18 @@ console.log(objectIntersect([o1,o2,o3],[o3,o2])); // [o2,o3];
 ----------|---------|----------|---------|---------|-------------------
 File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 ----------|---------|----------|---------|---------|-------------------
-All files |     100 |    86.66 |     100 |     100 |                  
-index.js |     100 |    86.66 |     100 |     100 | 26,38            
+All files |   98.83 |    92.59 |     100 |   98.83 |                  
+index.js |   98.83 |    92.59 |     100 |   98.83 | 53               
 ----------|---------|----------|---------|---------|-------------------
+
 
 # Credits
 
-Portions of code are taken from https://github.com/lovasoa/fast_array_intersect and modified to support objects through the use of optimized modern Javascript constructs.
+Portions of code are taken from an old version of https://github.com/lovasoa/fast_array_intersect and modified to support objects through the use of optimized modern Javascript constructs.
 
 # Updates (reverse chronological order)
+
+2023-02-17 v2.5.0 - Just over 100 bytes larger, but slightly faster for full intersection. Plus, intersection as an iterable was introduced with a blazing 20% plus performance benefit over full intersection.
 
 2023-02-16 v2.4.1 - Document formatting.
 
