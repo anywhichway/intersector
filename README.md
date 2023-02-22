@@ -24,6 +24,10 @@ If you want similar performance for union, Cartesian product, or memoizing also 
 - https://github.com/anywhichway/cxproduct
 - https://github.com/anywhichway/nano-memoize
 
+  For a complete high performance solution to Cartesian product and set operations for Arrays and Sets with a standardized API, plus the addition of the standard map/reduce/find operations to Set see:
+
+- https://github.com/anywhichway/array-set-ops
+
 # Installing
 
 ```
@@ -182,12 +186,19 @@ All files |   98.83 |    92.59 |     100 |   98.83 |
 index.js |   98.83 |    92.59 |     100 |   98.83 | 53               
 ----------|---------|----------|---------|---------|-------------------
 
+# FAQs
+
+Why not a generator function instead of a custom iterator?
+
+- I have found them to be slower.
 
 # Credits
 
 Portions of code are taken from an old version of https://github.com/lovasoa/fast_array_intersect and modified to support objects through the use of optimized modern Javascript constructs.
 
 # Updates (reverse chronological order)
+
+2023-02-22 v2.5.1 - Updated documentation.
 
 2023-02-17 v2.5.0 - Just over 100 bytes larger, but slightly faster for full intersection. Plus, intersection as an iterable was introduced with a blazing 20% plus performance benefit over full intersection.
 
